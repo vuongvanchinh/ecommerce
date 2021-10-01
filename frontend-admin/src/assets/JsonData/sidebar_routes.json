@@ -1,0 +1,47 @@
+[
+    {
+        "display_name": "Dashboard",
+        "route": "/dashboard/",
+        "icon": "bx bx-category-alt"
+    },
+    {
+        "display_name": "Customers",
+        "route": "/dashboard/customers",
+        "icon": "bx bx-user-pin"
+    },
+    {
+        "display_name": "Products",
+        "route": "/dashboard/products",
+        "icon": "bx bx-package"
+    },
+    {
+        "display_name": "Orders",
+        "route": "/dashboard/orders",
+        "icon": "bx bx-cart"
+    },
+    {
+        "display_name": "Analytics",
+        "route": "/dashboard/analytics",
+        "icon": "bx bx-bar-chart-alt"
+    },
+    {
+        "display_name": "categories",
+        "route": "/dashboard/categories",
+        "icon": "bx bx-list-ol"
+    },
+    {
+        "display_name": "coupon",
+        "route": "/dashboard/coupons",
+        "icon": "bx bx-gift"
+    },
+    {
+        "display_name": "inventory",
+        "route": "/dashboard/inventory",
+        "icon": "bx bx-store-alt"
+    },
+    {
+        "display_name": "settings",
+        "route": "/dashboard/settings",
+        "icon": "bx bx-cog"
+    }
+]

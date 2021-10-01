@@ -1,0 +1,50 @@
+.quote-wraper {
+    padding: 1rem 0;
+    /* background-color: lightblue; */
+}
+.quote {
+    position: relative;
+    text-align: center;
+    font-size:1.2rem;
+    margin: auto;
+    padding: 1rem;
+}
+
+
+.quote blockquote {
+    
+    font-style: italic;
+    z-index: 20;
+    text-shadow: -1px -1px;
+    padding: 0 1rem;
+
+}
+
+.quote-left {
+    position: absolute;
+    top: -1rem;
+    left:0;
+    display:block;
+    width: 5rem;
+    height: 5rem;
+    text-align: left;
+    font-size:4rem;
+    color: var(--main-color);
+    z-index: 10;
+    user-select: none;
+
+}
+
+.quote-right {
+    display: block;
+    width:2rem;
+    height: 2rem;
+    position: absolute;
+    bottom: 0;
+    right:0;
+    text-align: right;
+    font-size:4rem;
+    color: var(--main-color);
+    z-index: 10;
+    user-select: none;
+}

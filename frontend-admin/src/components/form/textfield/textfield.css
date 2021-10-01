@@ -1,0 +1,70 @@
+.text-field {
+    position: relative;
+    width: 100%;
+    height:3rem;
+    /* margin-top: 0.5rem; */
+}
+
+.text-field__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem;
+    border: 0;
+    font-family: inherit;
+    font-size: 1.2rem;
+    color: var(--txt-color);
+    /* box-shadow: var(--box-shadow); */
+
+}
+/* Variants  */
+.text-field__outline {
+    border-radius: var(--border-radius-second);
+    border: var(--border-normal);
+}
+
+.text-field__outline:hover{
+    border: var(--border-hover);
+}
+
+.text-field__outline:focus {
+    border: var(--border-focus);
+}
+
+.text-field__label {
+    position: absolute;
+    left: 1rem;
+    top: 0.8rem;
+    text-transform:capitalize;
+    padding: 0 0.5rem;
+    color: var(--txt-color);
+    transition: top 0.2s ease-in, left 0.2s ease-in;
+    background-color: var(--main-bg);
+    cursor: text;
+}
+
+
+
+.text-field__input:focus ~.text-field__label,
+.text-field__input:not(:placeholder-shown).text-field__input:not(:focus) ~ .text-field__label {
+    top: -0.5rem;
+    font-size: 0.8rem;
+    left: 0.8rem;
+    color: var(--main-color);
+}
+
+.text-field > .error-border {
+    border: 1px solid var(--error-message-color);
+}
+
+.text-field ~ .error-message {
+    /* position: absolute;
+    top: 110%; */
+    /* left: 1%; */
+    padding-left: 0.1rem;
+    margin-top: 0.5rem;
+    color: var(--error-message-color);
+    font-size: 0.8rem;
+}

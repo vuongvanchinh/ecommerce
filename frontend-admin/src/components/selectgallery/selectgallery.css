@@ -1,0 +1,43 @@
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-gap: 10px;
+}
+
+.img_wraper {
+    position: relative;
+}
+
+.checkbox_icon {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    font-size: 1.5rem;
+    /* color: var(--main-color); */
+    z-index: 10000;
+    padding: .2rem;
+    border-radius: 50%;
+}
+
+
+.checkbox_icon:hover:not(.checked_icon){
+    color: var(--main-color);
+    /* background-color: var(--background-hover-color); */
+}
+
+.checked_icon {
+    color: var(--main-color);
+    
+}
+
+.gallery_actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+.gallery_actions >button{
+    margin: .5rem;
+    flex: 1;
+}

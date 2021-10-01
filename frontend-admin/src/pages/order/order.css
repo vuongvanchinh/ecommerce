@@ -1,0 +1,20 @@
+.text-line {
+    text-align:center;
+}
+.text-line > a {
+    color: var(--second-color);
+}
+.line-wraper {
+    display: flex;
+    align-items: center;
+    padding: .8rem 0;
+    border-bottom: 1px solid var(--border-color);
+    margin: 0 !important;
+
+}
+
+.line-wraper .icon {
+    width: 2rem;
+    font-size: 1.5rem;
+    margin-right: .5rem; 
+} 

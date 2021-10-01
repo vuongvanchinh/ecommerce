@@ -1,0 +1,109 @@
+.sidebar {
+    width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    left: 0;
+    top: 0;
+    background-color: var(--main-bg);
+    box-shadow: var(--box-shadow);
+    /* overflow-x: hidden; */
+    /* overflow-y: scroll; */
+    transition: var(--sidebar-scale-transition);
+    --logo-height: 150px;
+    --sidebar-item-padding: 0 20px;
+    z-index: 9999;
+}
+
+.sidebar__logo {
+    height: var(--logo-height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar__logo > img {
+    width: 90%;
+    height: auto;
+}
+
+.sidebar__item {
+    padding: var(--sidebar-item-padding);
+}
+
+.sidebar__item-inner {
+    padding: 1rem ;
+    display: flex;
+    align-items: center;
+
+    font-weight: 600;
+    transition: color 0.3s ease 0s;
+
+}
+
+
+
+.sidebar__item-inner > i{
+    
+    font-size: 1.5rem;
+
+}
+
+.sidebar__item-inner > span{
+    text-transform: capitalize;
+    padding-left: 1rem;
+   
+
+}
+
+.sidebar__item-inner:hover {
+    color: var(--main-color);
+}
+
+.sidebar__item-inner.active {
+    border-radius: var(--border-radius);
+    background-image: linear-gradient(
+        to right,
+        var(--main-color),
+        var(--second-color)
+    );
+    color: var(--txt-white);
+
+}
+@media screen and (max-width: 1279px) {
+    body {
+        --sidebar-width: 75px;
+
+    }
+    .sidebar {
+        --logo-height: 75px;
+        --sidebar-item-padding: 10px;
+    }
+    .sidebar__item {
+        position: relative;
+    }
+    
+    .sidebar__item-inner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    .sidebar__item_name {
+        display: block;
+        position: absolute;
+        left: 110%;
+        background-color: #fff;
+        box-shadow: var(--box-shadow);
+        padding: 0.5rem;
+        color: var(--txt-color);
+
+        border-radius: var(--border-radius);
+        transition: all 0.5 ease;
+        display: none;
+       
+    }
+    .sidebar__item-inner:hover > .sidebar__item_name  {
+        display: block;
+    }
+}

@@ -1,0 +1,94 @@
+.checkbox {
+    --checkbox-size: 1rem;
+    --indicator-left: 6px;
+    --indicator-top: 2px;
+    --indicator-width: 4px;
+    --indicator-height: 10px;
+}
+.checkbox {
+    /* position: relative; */
+    display: flex;
+    /* margin-bottom: 10px; */
+    
+    font-size: 1.2rem;
+
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+/* Hide the browser's default checkbox */
+.checkbox input {
+    opacity: 0;
+    cursor: pointer;
+    height:0;
+    width: 0
+}
+.checkbox-checkmark-wrap {
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    transition: background-color 0.5s ease-out;
+
+    /* background-color: var(--background-hover-color); */
+}
+
+.checkbox-checkmark-wrap:hover {
+    background-color: var(--background-hover-color);
+}
+
+.checkbox-checkmark {
+    position: relative;
+    display: block;
+    width: var(--checkbox-size);
+    height: var(--checkbox-size);
+    background-color:var(--main-bg);
+    border: 2px solid var(--border-color);
+    transition: all .2s ease-out;
+    
+}
+
+/* On mouse-over, add a grey background color */
+/* .checkbox:hover input ~ .checkbox-checkmark-wrap> .checkbox-checkmark {
+    background-color:var(--background-hover-color);
+} */
+
+.checkbox input:checked ~ .checkbox-checkmark-wrap>.checkbox-checkmark {
+    background-color: var(--second-color);
+    border: none;
+}
+
+.checkbox-checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+    left: 4px;
+    top: 0px;
+    width: 5px;
+    height: 10px;
+    /* height: 1rem; */
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Show the checkmark when checked */
+.checkbox input:checked ~ .checkbox-checkmark-wrap .checkbox-checkmark:after {
+    display: block;
+}
+
+.checkbox-label {
+    line-height: 2rem;
+    /* text-transform: capitalize; */
+}
+  

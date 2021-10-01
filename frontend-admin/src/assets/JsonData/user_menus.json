@@ -1,0 +1,23 @@
+[
+    {
+        "to": "/profile",
+        "icon": "bx bx-user",
+        "content": "Profile"
+        
+    },
+    {
+        "to": "/wallet",
+        "icon": "bx bx-wallet-alt",
+        "content": "My Wallet"
+    },
+    {
+        "to": "/setting",
+        "icon": "bx bx-cog",
+        "content": "Settings"
+    },
+    {
+        "to": "/logout",
+        "icon": "bx bx-log-out-circle bx-rotate-180",
+        "content": "Logout"
+    }
+]

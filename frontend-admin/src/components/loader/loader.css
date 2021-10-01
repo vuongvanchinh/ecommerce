@@ -1,0 +1,48 @@
+.loader {
+    --width-loader: 25px;
+    --width-border-loader: 3px;
+}
+
+.loader {
+    animation: spin 0.8s linear infinite; 
+    border-radius: 50%;
+    z-index: 100;
+    margin: 0  auto;
+    background: transparent;
+    width: var(--width-loader);
+    height: var(--width-loader);
+    border: var(--width-border-loader) solid transparent;
+    border-right: var(--width-border-loader) solid var(--main-color) ;
+    border-bottom: var(--width-border-loader) solid var(--main-color) ;
+}
+
+.loader-small {
+    --width-loader: 25px;
+    --width-border-loader:3px; 
+} 
+
+.loader-medium {
+    --width-loader: 50px;
+    --width-border-loader:5px; 
+    /* width: var(--width-medium);
+    height: var(--width-medium);
+    border: var(--width-border-medium) solid var(--third-color);
+    border-top: var(--width-border-medium) solid var(--main-color); */
+}
+
+.loader-large {
+    --width-large: 30px;
+    --width-border-large:5px; 
+    /* width: var(--width-large);
+    height: var(--width-large);
+    border: var(--width-border-large) solid var(--third-bg);
+    border-top: var(--width-border-large) solid var(--main-color); */
+}
+
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    /* 50% { transform: rotate(90deg)}
+    75% { transform: rotate(180deg)} */
+    100% { transform: rotate(360deg);  }
+}

@@ -1,0 +1,106 @@
+
+.modal_wraper {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* z-index: 999999; */
+    background-color: rgba(0,0,0,0.25);
+    transition: all 0.5s ease-out;
+}
+
+.modal {
+    --width: 50%;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: var(--main-bg);
+    animation-name: ani;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;  
+    /* overflow: scroll; */
+    max-height: 100%;
+    width: var(--width);
+    border-radius: 8px;
+
+}
+.modal_medium {
+    --width: 50%;
+}
+.modal_large {
+    --width: 80%;
+}
+
+.modal_small {
+    --width: 30%;
+}
+
+.modal_header {
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+    font-size: 1.2rem;
+    min-height: 2rem;
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+
+}
+.model_header:hover {
+    background-color: red;
+}
+
+.modal_body {
+    min-height: 2rem;
+    max-height: 80vh;
+    padding: 1rem;
+    overflow-y: auto;
+}
+
+
+.modal_footer {
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+}
+
+@keyframes ani {
+    from {
+        margin-top: -100%;
+    }
+    to {
+        margin-top: 0;
+    }
+
+}
+
+@media screen and (max-width: 1279px) {
+    .modal_large {
+        --width: 100%;
+    }
+    .modal_medium {
+        --width: 80%;
+    }
+  
+    .modal_small {
+        --width: 50%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .modal_large {
+        --width: 100%;
+    }
+    .modal_medium {
+        --width: 95%;
+    }
+  
+    .modal_small {
+        --width: 80%;
+    }
+
+}
+
