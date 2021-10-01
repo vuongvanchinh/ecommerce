@@ -1,0 +1,77 @@
+.tooltip {
+  /* --top: unset;
+  --right: unset;
+  --left: unset;
+  --bottom: unset; */
+  --arrow_size: 5px;
+  --bg: rgba(0, 0, 0, .8);
+  position: relative;
+}
+
+/* Tooltip text */
+.tooltip_text {
+  visibility: hidden;
+  
+  background-color:var(--bg);
+  color: #f1f1f1;
+  text-align: center;
+  padding: 5px 10px;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+  top: var(--top);
+  right: var(--right);
+  bottom: var(--bottom);
+  left: var(--left);
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltip_text {
+  visibility: visible;
+}
+
+.left {
+  --top: calc(-1*var(--arrow_size));
+  --right: calc(100% + var(--arrow_size));
+}
+
+.right  {
+  --top: calc(-1*var(--arrow_size));
+  --left: calc(100% + var(--arrow_size));
+}
+
+.top {
+  --bottom: calc(100% + var(--arrow_size));
+  --left: 10%;
+ 
+}
+
+.bottom {
+  --top: 100%;
+  --left: 50%;
+  
+}
+/* Arrow */
+.top .tooltip_text::after {
+  content: " ";
+  position: absolute;
+  top: 100%; /* At the bottom of the tooltip */
+  left: 10%;
+ 
+  border-width: var(--arrow_size);
+  border-style: solid;
+  border-color: var(--bg) transparent transparent transparent;
+}
+
+.bottom .tooltip_text::after {
+  content: " ";
+  position: absolute;
+  bottom: 100%; /* At the top of the tooltip */
+  left: 50%;
+  margin-left: -var(--arrow_size);
+  border-width: var(--arrow_size);
+  border-style: solid;
+  border-color: transparent transparent var(--bg) transparent;
+}

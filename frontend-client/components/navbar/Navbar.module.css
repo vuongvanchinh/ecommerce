@@ -1,0 +1,128 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;  
+    box-shadow: var(--box-shadow);
+    height: var(--navbar-height);
+    padding: 0 1rem;
+    position:fixed;
+    top: 0;
+    transition: 0.4s;
+    width: 100%;
+    /* overflow: hidden; */
+    background-color: var(--main-bg);
+    z-index: var(--z-index-highest);
+    font-weight: 500;
+}
+
+.shrink {
+   --navbar-height: var(--navbar-shrink-height);
+}
+
+.side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-menu-color);
+}
+
+.logo {
+    display: flex;
+    align-items: center;    
+}
+.logo img{
+    width: 200px;
+}
+.link {
+    padding: 0 10px;
+}
+.active {
+    color: var(--main-color);
+}
+
+.link:hover {
+    color: var(--text-menu-hover-color);
+}
+.right_item {
+    padding: 0 10px;
+}
+
+.right_item > i {
+    font-size: 1.2rem;
+    font-weight: 1.5;
+}
+.user_toggle {
+    font-size: 1.2rem;
+    
+}
+.right_item > i:hover {
+    color: var(--text-menu-hover-color);
+}
+.cart_footer {
+    padding: 2px 0;
+}
+
+/* .cart_btn {
+    background-color: var(--main-color-orange);
+
+}
+
+.checkout_btn {
+    background-color: var(--main-color);
+   
+} */
+.cart_btn, .checkout_btn {
+     padding: 0.5rem 1rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cart_btn > i, .checkout_btn > i {
+    font-size: 1.2rem;
+    padding-right: .5rem;
+}
+.user_menu_body {
+    padding: .2rem 0;
+    border-radius: 3px;
+    background-color: var(--main-bg);
+    box-shadow: var(--box-shadow);
+
+
+}
+.user_menu_item {
+    
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    padding: 0.2rem 0.5rem;
+}
+.user_menu_item >i {
+    font-size: 1.8rem;    
+    padding-right: .5rem;
+}
+
+.user_menu_item:hover {
+    background-color: var(--background-hover-color);
+}
+.auth_user_toggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.auth_user_toggle > img {
+    --width: 1.5rem;
+    width: var(--width);
+    height: var(--width);
+    border-radius: 50%;
+    margin-right: .5rem;
+
+}
+@media screen and (max-width: 767px) {
+    .logo {
+        display: none;
+        
+    }
+}

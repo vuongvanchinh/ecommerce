@@ -1,0 +1,132 @@
+.slider {
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    /* max-height: 1080px; */
+    margin-bottom: 1rem;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.item {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    opacity: 0;
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-color: var(--main-bg);
+    overflow: hidden;
+}
+
+.item_active {
+    opacity: 1;
+}
+.item_info {
+    display: flex;
+    align-items: center;
+    width: 58%;
+    z-index: 1;
+    padding: 2rem;
+    user-select: none;
+    background-color: transparent;
+}
+
+.item_info_description {
+    font-size: 1.2rem;
+    line-height: 2rem;
+    font-style: italic;
+    font-weight:  normal;
+    line-height:  inherit;
+    overflow: hidden;  
+}
+
+.item_info_title {
+    text-align: center;
+    font-family: "M PLUS Rounded 1c", sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem;
+    line-height: 4rem;
+    color: var(--main-color);
+    overflow: hidden;
+}
+
+.item_image {
+    width: 42%;
+    height: 100%;
+    position: relative;
+    right: 0;
+    /* pointer-events: none; */
+}
+.shape {
+    background-color: blue;
+    position: absolute;
+    right: 0;
+    top: -50px;;
+    width: 800px;
+    height: 100%;
+    transform: translate(10%, 0);
+    border-radius: 58% 42% 38% 62% / 42% 55% 45% 58%;
+    animation: border 10s ease-out 1s infinite;
+    /* overflow: hidden; */
+}
+
+.item_image > img {
+    height: 100%;
+    position: absolute;
+    right: 0;
+   
+    /* z-index: var(--z-index-high-second) */
+}
+
+.item_info_btn {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.item_info_btn button {
+    background-color: rgb(176, 215, 224);
+}
+.slider_control {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 1.2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    z-index: 1;
+
+}
+
+
+.control_item:hover {
+    color: #696969;
+}
+
+@media only screen and (max-width: 1024px) {
+    .item_info {
+        width: 100%;
+    }
+    .item_info_title {
+        font-size: 1rem;
+    }
+    
+}
+
+@keyframes border{
+    0% {
+        border-radius: 58% 42% 38% 62% / 64% 55% 45% 58%;
+    }
+    50% {
+        border-radius: 31% 69% 59% 41% / 70% 24% 76% 72%;
+    }
+    100% {
+        border-radius: 58% 42% 38% 62% / 70% 55% 45% 58%;
+    }
+
+}

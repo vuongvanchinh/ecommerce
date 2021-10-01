@@ -1,0 +1,25 @@
+.noti_btn {
+    position: relative;
+}
+.noti_btn > i {
+    font-size: 1.2rem;
+    font-weight: 1.5;
+}
+
+.badge {
+    background-color: red;
+    color: white;
+    position: absolute;
+    left: 80%;
+    top: -20%;
+    font-size: 0.8rem;
+    font-weight: 600;
+    display: block;
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    border-radius: 50%;
+}
+.noti_btn > i:hover {
+    color: #000;
+}

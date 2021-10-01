@@ -1,0 +1,18 @@
+[
+    {
+        "route": "/",
+        "display_name": "Home"
+    },
+    {
+        "route": "/product",
+        "display_name": "Product"
+    },
+    {
+        "route": "/about",
+        "display_name": "About"
+    },
+    {
+        "route": "/contact",
+        "display_name": "Contact"
+    }
+]

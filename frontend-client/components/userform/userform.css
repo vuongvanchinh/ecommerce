@@ -1,0 +1,58 @@
+.user-form {
+    /* max-width: 1280px; */
+    /* margin: 0 auto; */
+    
+}
+
+.form-card {
+    background-color: var(--main-bg);
+    border-radius: var(--border-radius-second);
+    border: 0.3px solid #f1f1f1;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.form-card__header {
+    padding: 1rem;
+    font-size: 1.5rem;
+    border-bottom: 0.3px solid #eee;
+}
+
+.form-card__body{
+    padding: 1rem;
+
+}
+
+
+.form-card__body {
+    padding: 1rem;
+}
+
+.form-card__body > div:not(:last-child) {
+    margin-bottom: 2rem;
+}
+
+.form__actions {
+    /* position: fixed;
+    bottom: -50px; */
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: var(--main-bg);
+    padding: 1rem 0;
+    border-top-left-radius: var(--box-shadow);
+    border-top-right-radius: var(--box-shadow);
+    box-shadow: var(--box-shadow);
+}
+
+.actions>*{
+   margin-left: 1rem;
+}
+.email-title {
+    /* background-color: red; */
+    width: 200px;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+    text-align: center;
+
+}

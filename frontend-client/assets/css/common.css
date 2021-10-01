@@ -1,0 +1,180 @@
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.max_width_1280 {
+    max-width: 1280px;
+}
+
+.margin_center {
+    margin: 0 auto;
+}
+
+.error-message {
+    color: var(--second-color-red);
+    font-size: 0.875rem;
+    padding: 3px 0;
+}
+
+.error-border {
+    border-color: var(--error-message-color);
+}
+
+.center-content {
+    margin-left: auto;
+    margin-right: auto;
+    
+}
+
+.loader-full-screen {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    /* margin: 0 auto; */
+}
+
+.margin-bottom-1rem {
+    margin-bottom: 1rem;
+}
+.margin-bottom-1rem {
+    margin-bottom: 1rem;
+}
+.margin-top-1rem {
+    margin-top: 1rem;
+}
+.center-content-wraper {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.flex-container{
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+}
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 0.5rem;
+}
+.dot-success {
+    background-color: var(--main-color);
+
+}
+
+.dot-warning {
+    background-color: var(--main-color-orange);
+}
+
+.text-align-right {
+    text-align: right;
+}
+.horizontal_center {
+    margin: 0 auto;
+}
+
+.font-weight-500 {
+    font-weight: 500;
+}
+.main-bg {
+    background-color: var(--main-bg);
+}
+.price {
+    font-weight: 600;
+    color: rgb(1, 129, 108);
+    font-size: 1rem;
+}
+
+
+.card {
+    --padding: 1rem;
+
+    border-radius: 4px;
+    background-color: var(--main-bg);
+    margin-bottom: 1rem;
+    box-shadow: var(--box-shadow);
+
+}
+
+.card_header {
+    padding: var(--padding);
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 1.2rem;
+}
+
+.card_body {
+    padding: var(--padding);
+    
+}
+.padding-top-1rem {
+    padding-top: 1rem;
+} 
+.padding-bottom-1rem {
+    padding-bottom: 1rem;
+}
+
+.flex {
+    display: flex;
+}
+
+.space_between {
+    justify-content: space-between;
+}
+.aline_center {
+    align-items: center;
+}
+
+.padding_1rem {
+    padding: 1rem;
+}
+.color_white {
+    color: #fff;
+}
+
+.main_color_background {
+    background-color: var(--main-color);
+}
+.link {
+    color: var(--link-color);
+
+}
+.link:hover {
+    color: rgb(0, 110, 255);
+}
+.full_width {
+    width: 100%;
+
+}
+
+.full_height {
+    height: 100%;
+}
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex_center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page_header {
+    font-size: 1.5rem;
+    line-height: 3rem;
+    padding: .5rem;
+}

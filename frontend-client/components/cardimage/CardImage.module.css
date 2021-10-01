@@ -1,0 +1,69 @@
+.card_image {
+    --name-height: 2.5rem;
+    --name-font-size: 1.5rem;
+    --description-font-size: 1.2rem;
+    --description-line: 4;
+
+    width: 100%;
+  
+    cursor: pointer;
+    position: relative;
+    /* height: 300px; */
+    color: #fafafa;
+    box-shadow: var(--box-shadow);
+    height: 100%;
+}
+
+.card_image > img {
+    width: 100%;
+    height: 100%;
+}
+
+.info {
+    position: absolute;
+    bottom: 0;
+    padding:0 1rem;
+    background: rgba(0, 0, 0, .5);
+    height: var(--name-height);
+    width: 100%;
+    transition: all 1s var(--transition-cubic);
+    overflow:hidden;
+}
+
+.name {
+    font-size: var(--name-font-size);
+    line-height: var(--name-height);
+    display:-webkit-box;
+    -webkit-line-clamp:1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+.card_image:hover > .info  {
+
+    height: 70%;
+}
+.card_image:active {
+    transition: transform 1s ease-out;
+    transform: scale(1.05);
+}
+
+.description {
+    font-size:var(--description-font-size);
+    display:-webkit-box;
+    -webkit-line-clamp: var(--description-line);
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;    
+}
+
+@media screen and (max-width: 767px) {
+    .card_image {
+        --name-font-size: 1.2rem;
+        --name-height: 2rem;
+        --description-line: 3;
+
+    }
+}

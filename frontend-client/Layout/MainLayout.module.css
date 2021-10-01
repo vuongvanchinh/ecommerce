@@ -1,0 +1,23 @@
+.container {
+    /* width: 100%;
+    position: relative; */
+    background-color: var(--second-bg);
+}
+
+.content main{
+    /* width: 100%; */
+    padding-top: var(--navbar-height);
+    /* position: absolute; */
+    min-height: 90vh;
+  
+}
+
+.log {
+    
+    position: fixed;
+    width: 400px;
+    bottom: 3rem;
+    right: 0;
+    background-color: transparent;;
+    text-align: center;
+}

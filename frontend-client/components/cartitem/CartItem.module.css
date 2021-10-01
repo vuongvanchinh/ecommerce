@@ -1,0 +1,221 @@
+.cart_item {
+    --img-width: 150px;
+    --padding-right: 60px;
+    display: flex;
+    /* flex-wrap: wrap; */
+    /* background-color: green; */
+    padding: 5px;
+    position: relative;
+    padding-right: var(--padding-right);
+    color: #444;
+    font-weight: 420;
+    font-size: 1.2rem;
+    border-bottom: 2px solid  #f1f1f1;
+}
+
+.img {
+    flex-shrink: 0;
+    
+    max-width: var(--img-width);
+    max-height: var(--img-width);
+    overflow: hidden;
+    /* background-color: lightblue; */
+}
+
+.img > img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 40% 15% 15% 15% 15%;
+
+    justify-content: space-between;
+    align-items: center;
+    /* flex-wrap: wrap; */
+    /* flex-shrink: 1; */
+    /* background-color: lightgreen; */
+    padding-left: 1rem;
+    flex-basis: 100%;
+    
+}
+.quantity {
+    --width: 35px;
+    display: flex;
+    align-items: center; 
+    width: calc(3*var(--width))
+ }
+ 
+ .quantity >* {
+     
+     
+     width:var(--width);
+     height: var(--width);
+     line-height: var(--width);
+     text-align: center;
+     background-color: rgba(189, 216, 238, 0.5);
+     /* padding: .5rem; */
+     border: 1px solid #d8d5d5;
+     font-size: 0.875rem;
+     flex-shrink: 0;
+     
+ }
+ 
+ .quantity input {
+     border-left:0;
+     border-right: 0;
+ }
+ 
+ .quantity > input::-webkit-outer-spin-button,
+ .quantity > input::-webkit-inner-spin-button {
+   -webkit-appearance: none;
+   margin: 0;
+ }
+ 
+ /* Firefox */
+ .quantity > input[type=number] {
+   -moz-appearance: textfield;
+ }
+ .quantity>*:hover:not(.disabled), .quantity>input:focus {
+     border: 1px solid #2193b0;
+     background-color: rgba(82, 84, 85, 0.514);
+ }
+
+ .disabled{
+     color: #8e8e8e;
+     pointer-events: none;
+ }
+
+ .name {
+     /* min-width: 200px; */
+ }
+
+ .name > span {
+     font-weight: 420;
+     line-height: 1.5rem;
+
+     display:-webkit-box;
+     -webkit-line-clamp:3;
+     -webkit-box-orient: vertical;
+     overflow: hidden;
+     text-overflow: ellipsis;
+     word-break: break-word;
+ }
+ .remove {
+     position:absolute;
+     right: 0;
+     top: 50%;
+     transform: translateY(-50%);
+    width: var(--padding-right);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #8f8989
+ }
+ .remove i {
+     
+
+     --width: 40px;
+     width: var(--width);
+     height: var(--width);
+     border-radius: 50%;
+     display: block;
+     text-align: center;
+     line-height: var(--width);
+ }
+
+ .remove i:hover {
+   
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.35);
+ }
+ .price {
+    
+     text-align: center;
+}
+
+.classify {
+    text-align: center;
+}
+
+.label {
+    color: #8e8e8e;
+    font-size: 0.875rem;
+    line-height: 1.2rem;
+    padding-right: 1.2rem;
+
+}
+
+@media screen and (max-width: 767px) {
+    .cart_item {
+        --img-width: 160px;
+        font-size: 1rem;
+    }
+   
+    .info {
+        grid-template-columns: 1fr 
+    }
+    .info>* {
+        margin-bottom: .3rem;
+    }
+    .quantity { 
+        --width: 24px;
+    }
+    .price {
+    
+        text-align:left;
+   }
+   .name span{
+       display:-webkit-box;
+       -webkit-line-clamp:1;
+       -webkit-box-orient: vertical;
+       overflow: hidden;
+       text-overflow: ellipsis;
+       word-break: break-word;
+   }
+   .classify {
+        text-align: left;
+    }
+
+    .quantity_wraper {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.thumbnail {
+    --padding-right: 0;
+    --img-width: 160px;
+    font-size: 1rem;
+
+}
+
+.thumbnail .info {
+    grid-template-columns: 1fr 
+}
+.thumbnail .info>* {
+    margin-bottom: .3rem;
+}
+.thumbnail .quantity { 
+    --width: 24px;
+}
+.thumbnail .price {
+
+    text-align:left;
+}
+.thumbnail .name span{
+   display:-webkit-box;
+   -webkit-line-clamp:1;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   word-break: break-word;
+}
+.thumbnail .classify {
+    text-align: left;
+}

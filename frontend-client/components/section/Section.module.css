@@ -1,0 +1,9 @@
+.section {
+  
+}
+
+.title {
+    font-size: 1.2rem;
+    color: var(--txt-color);
+    margin-bottom: 1rem;
+}

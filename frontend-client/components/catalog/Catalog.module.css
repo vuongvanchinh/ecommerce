@@ -1,0 +1,266 @@
+.product_list {
+  
+    margin: 0 auto;
+    /* max-width: 1280px; */
+}
+
+.main_content {
+    display: flex;
+   
+    margin: 0 auto;
+}
+.filter_wraper {
+    --height: 50px;
+    position: relative;
+}
+.filter {
+    max-width: 250px;
+   
+    
+    /* min-height: 100vh; */
+}
+.filter_block {
+    --indent: 1rem;
+    padding: 10px;
+    /* margin-bottom: 1rem; */
+}
+
+.filter_block_header {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--txt-color);
+    line-height: 1.5rem;
+}
+.select_item_wraper {
+    margin-left: var(--indent);
+
+}
+
+.select_item {
+    cursor: pointer;
+    text-transform:capitalize;
+    padding: .1rem 0;
+}
+
+
+
+.list {
+    /* background-color: green; */
+    flex: 1;
+    margin-top: 1rem;
+    min-width: calc(100% -250px);
+}
+
+.selected {
+    --arrow_width: 5px;
+    color: var(--main-color);
+    font-weight: 500;
+    position: relative;
+    /* background-color: red; */
+    
+
+}
+.selected::before {
+    position: absolute;
+    left: calc(-1*var(--indent) + 3px);
+    top: 50%;
+    transform: translateY(-60%);
+    content: ' ';
+    width: 0; 
+    height: 0; 
+    border-top: var(--arrow_width) solid transparent;
+    border-bottom: var(--arrow_width) solid transparent;
+    
+    border-left: var(--arrow_width) solid var(--main-color);
+
+}
+.price_block {
+    margin-top: .2rem;
+}
+
+.min_max_wraper {
+    display: flex;
+    margin-bottom: 1rem;
+}
+.min_max_wraper input {
+    padding: 0.4rem;
+    width: 50%;
+    background-color: rgba(189, 216, 238, 0.5);
+    /* padding: .5rem; */
+    border: 1px solid #d8d5d5;
+    font-size: 1.1rem;
+}
+.min_max_wraper input:hover:not(.disabled), .quantity>input:focus {
+    border: 1px solid #2193b0;
+    background-color: rgba(165, 226, 241, 0.514);
+}
+.button_filter_wraper {
+    position: absolute;
+    top: 0;
+    left: 15px;
+}
+.button_sort_wraper {
+    position: absolute;
+    right: 15px;
+    top: 0;
+
+}
+.button {
+    position: relative;
+    
+    background-color: #fff;
+    box-shadow: var(--box-shadow);
+    border-radius: 3px;
+    font-size: 2rem;
+    transition: all .5s ease;
+    width: var(--height);
+    height: var(--height);
+    border: 2px solid transparent;
+    overflow: hidden;
+   
+}
+.filter_button {
+    display: none;
+}
+
+.sort_button {
+    display: none;
+
+}
+
+
+.button>i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+    
+}
+.button::before {
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    content: "";
+    display: block;
+    width:  100%;
+    height: 100%;
+    background-color: var(--background-hover-color);
+    transform-origin: top left;
+    transform: scale(0);
+    border-radius: 50%;
+    transition: transform 0.5s ease-out;
+
+}
+.button:hover::before{
+    transform: scale(3);
+} 
+.sort {
+    
+    padding: 5px ;
+    border-radius: 2px;
+    z-index: 1;
+    
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    transform-origin: top left;
+    
+}
+.sort_mobile {
+    display: none;
+}
+
+
+
+.sort_item {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding-right: .5rem;
+    border-bottom: 2px solid var(--second-bg);
+    
+}
+.sort_item>i {
+    font-size: 2rem;
+    padding: 0.2rem 0.5rem;
+}
+.sort_item:hover {
+    background-color: var(--background-hover-color);
+}
+
+.top_sort {
+    padding: .5rem;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem;
+    /* margin-bottom: 1rem; */
+}
+.top_sort_button {
+
+    display: flex;
+    padding: 1.5rem;
+
+}
+
+
+
+
+@media screen and (max-width: 767px) {
+    .main_content {
+        flex-direction: column;   
+    }
+    .filter_wraper {
+        height: var(--height);
+        padding: 0;
+
+        margin-top: .5rem;
+
+    }
+
+    .filter {
+        min-height: unset;
+        max-width: unset;
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(auto-fit,  minmax(200px, 1fr));
+
+        padding: 1rem;
+        box-shadow: var(--box-shadow);
+        border-radius: 0 8px 8px 8px;
+        width: calc(90% - 30px);
+        z-index: 1;
+        /* overflow: hidden; */
+        position: absolute;
+        top: 100%;
+        left: calc(var(--height) + 15px);
+        background-color: #fff;
+        transform: scale(0);
+        transition: transform 0.5s var( --transition-cubic);
+        transform-origin: top left;
+    }
+
+    .filter_button {
+        display: block;
+    }
+    .sort_button {
+        display: block;
+    }
+    .sort_mobile {
+        position: absolute;
+        top: 100%;
+        right: calc(15px + var(--height));
+        transform: scaleY(0);
+        background-color: var(--main-bg);
+        display: block;
+
+    }
+    .open_filter {
+        transform: scale(1);
+    }
+    .open_sort {
+        transform: scaleY(1);
+    }
+    .top_sort {
+        display: none;
+    }
+
+}

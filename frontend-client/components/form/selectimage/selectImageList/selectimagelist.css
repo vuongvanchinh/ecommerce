@@ -1,0 +1,18 @@
+.select-image-list {
+    /* position: relative; */
+
+}
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+
+}
+.select-image-list > input {
+    display: none;
+}
+.select-image-list > label {
+    font-size: 1rem;
+    font-weight: 550;
+    text-transform: uppercase;
+    color: var(--main-color);
+}

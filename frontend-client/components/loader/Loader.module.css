@@ -1,0 +1,36 @@
+.loader {
+    --width: 25px;
+    --width-border: 3px;
+}
+
+.loader {
+    animation: spin 0.8s linear infinite; 
+    border-radius: 50%;
+    z-index: inherit;
+    margin: 0  auto;
+    background: transparent;
+    width: var(--width);
+    height: var(--width);
+    border: var(--width-border) solid var(--main-color);
+    border-right: var(--width-border) solid transparent;
+}
+
+.small {
+    --width: 25px;
+    --width-border:3px; 
+} 
+
+.medium {
+    --width: 50px;
+    --width-border:5px; 
+}
+
+.large {
+    --width: 60px;
+    --width-border:6px;
+}
+
+
+@keyframes spin {
+    100% { transform: rotate(360deg);  }
+}

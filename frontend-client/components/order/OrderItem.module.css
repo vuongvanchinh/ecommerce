@@ -1,0 +1,43 @@
+.order_item {
+    
+    --line-height: 1.5rem;
+    --image-width: calc(4* var(--line-height));
+    display: flex;
+    /* border-bottom: 2px solid #eee; */
+    color: var(--txt-color);
+    padding: 1px;  
+    /* user-select: none;   */
+}
+
+.image {
+    min-width: var(--image-width);
+    padding-top: var(--image-width);
+    height: 0;
+    background-color: lightblue;
+    background-size:     cover;                      /* <------ */
+    background-repeat:   no-repeat;
+    background-position: center center; 
+    cursor: pointer;             
+
+}
+.info {
+    padding: 0 1rem;
+    line-height: var(--line-height);
+    flex: 1;
+
+
+}
+.name {
+    /* font-size: 1.2rem; */
+    display:-webkit-box;
+    -webkit-line-clamp:2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-word;
+}
+.label {
+    color: #4d4d4d;
+    font-size: .875rem;
+    padding-right: .2rem;
+}

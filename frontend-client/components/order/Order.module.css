@@ -1,0 +1,70 @@
+.order {
+   
+    border-radius: 3px;
+    box-shadow: var(--box-shadow);
+    user-select: none; 
+
+}
+.order>* {
+    background-color: var(--main-bg);
+}
+.header {
+    padding: 1rem;
+    border-bottom: 2px solid #eee;
+    display: flex;
+    justify-content: space-between;
+}
+
+.body {
+    padding: 1rem;
+}
+
+.label {
+    color: #4d4d4d;
+    font-size: .875rem;
+    padding-right: .2rem;
+}
+.summary {
+    
+    display: flex;
+    justify-content: space-between;
+} 
+
+.footer>div {
+    padding: .5rem 1rem;
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+   
+}
+.status {
+    --bg: rgb(39, 152, 228);
+    --color: #fff;
+    color: var(--color);
+    font-weight: 450;  
+    padding: .5rem;
+    background-color: var(--bg);
+    display: inline-block;
+    border-radius: 3px;
+}
+.unconfirmed{
+    --bg: #3700b3;
+}
+
+.shipping {
+    --bg: #018786;
+    /* --color: #000; */
+
+
+}
+.delivered {
+    --bg: #03dac6;
+    --color: #000;
+}
+
+.canceled {
+    --bg: rgb(250, 73, 3);
+    
+}
