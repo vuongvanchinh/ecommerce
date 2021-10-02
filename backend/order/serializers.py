@@ -15,13 +15,19 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderItemReadOnlySerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     product = serializers.SerializerMethodField()
+    coupon = serializers.SerializerMethodField()
 
     class Meta:
         model = OrderItem
         fields = ['id', 'quantity', 'product',
                     'price', 'product_name',
                     'variant_name', 'product_sku',
-                    'variant', 'image']
+                    'variant', 'image', 'coupon']
+    def get_coupon(self, instance):
+        if (instance.coupon):
+            return None
+        return instance.coupon.code
+        
     def get_image(self, instance):
         request = self.context.get('request')
         img = getattr(instance, 'image', None)

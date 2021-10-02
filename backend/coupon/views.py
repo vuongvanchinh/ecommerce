@@ -17,4 +17,3 @@ class CouponViewset(viewsets.ModelViewSet):
         rs = [permission() for permission in permission_classes]
         # print(rs)
         return rs
-        
