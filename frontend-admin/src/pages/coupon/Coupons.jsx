@@ -23,8 +23,8 @@ const couponTableHead = [
   "code",
   "type",
   "discount",
+  "status",
   "min order value to apply",
-  "status"
 ]
 
 const renderCouponBody = (item, index) => (
@@ -35,8 +35,9 @@ const renderCouponBody = (item, index) => (
       {item.type}
     </td>
     <td>{priceNumber(item.discount)}{item.type === percentage? '%':'đ'}</td>
-    <td>{priceNumber(item.min_order_value)} đ</td>
     <td>{item.active? <Badge content='In effect' type='success'/>: <Badge content='Expired' type='warning'/>  }</td>
+    <td>{priceNumber(item.min_order_value)} đ</td>
+    
   </>
 )
 
@@ -48,19 +49,18 @@ const renderCouponHead = () => couponTableHead.map((item, index) => {
 
 const searchFields = [
   {value: "code", content:"Code"},
-  {value: "type", content:"type"},
-  {value: "price", content:"Price"},
+  {value: "type", content:"Type"},
+  {value: "discount", content:"Discount"},
 ]
 
 const actions = [
-  {label: "Delete", onClick:() => {console.log("Delete")}},
-  {label: "Export", onClick:() => {console.log("Export")}}
+  {label: "Delete", onClick:() => {alert("This featute has not implemented yet")}},
+  {label: "Export", onClick:() => {alert("This featute has not implemented yet")}}
 ]
 
 
-
 const Coupons = () => {
-  const { path, url } = useRouteMatch()
+  const { path } = useRouteMatch()
   const couponData = useSelector(state => state.coupon_list)
   const dispatch = useDispatch()
 
@@ -125,14 +125,14 @@ const Coupons = () => {
                 selectedItems={couponData.selectedItems}
                 actions ={actions}
                 onPickItem = {(item) => onPickItem(item) }
-                primary_field='code'
+                primary_field='id'
               />
             </div>
           </div>
         </Route>
         
         <Route path={couponAddPage()} exact component={AddCoupon} />
-        <Route path={`${path}/:code`} component={UpdateCoupon}/>
+        <Route path={`${path}/:id`} component={UpdateCoupon}/>
       </Switch>
     </div>
   )

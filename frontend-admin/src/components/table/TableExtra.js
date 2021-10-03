@@ -14,6 +14,15 @@ const renderActionItem = (item, index) => (
   </div>
 )
 
+const renderActions = (actions=[]) => (
+  <div style={{ zIndex: '2'}} >
+    {
+      actions.map((action, index) => renderActionItem(action, index))
+    }
+  </div>
+)
+
+
 const TableExtra = (props) => {
   let {
     data,
@@ -92,8 +101,7 @@ const TableExtra = (props) => {
       <div className="search-filter ">
         <Dropdown
           customToggle={() => renderActionToggle()}
-          contentData = { actions }
-          renderItems = {(item, index) => renderActionItem(item, index)}
+          renderBody = {() => renderActions(actions)}
         />
         <div className="search-wraper">
           <input
@@ -104,13 +112,18 @@ const TableExtra = (props) => {
             id="query"
             placeholder={placeholder}
           />
-          <SelectField
-            name="searchfield"
-           
-            options={searchFields}
-            value={searchField}
-            onChange={(dt) => setSearchField(dt.value)}
-          />
+          {
+            searchFields.length > 0? (
+             <div className='searchfield'>
+                <SelectField
+                  name="searchfield"
+                  options={searchFields}
+                  value={searchField}
+                  onChange={(dt) => setSearchField(dt.value)}
+              />
+             </div>
+            ):null
+          }
         </div>
       </div>
       <div className="table-extra__wraper">

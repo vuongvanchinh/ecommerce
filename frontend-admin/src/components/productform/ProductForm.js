@@ -18,7 +18,7 @@ import { addCriterion, addOption,
   onChangeVariant, fillOutVariant,
   appendImages, onChangeImage
 } from "../../redux/features/product_crud";
-import Modal from '..//model/Modal'
+import Modal from '..//modal/Modal'
 
 import "./productform.css";
 

@@ -5,15 +5,31 @@ import Checkbox from '../form/checkbox/Checkbox'
 import Button from '../button/Button'
 import { Link } from 'react-router-dom'
 import { couponListPage } from '../../utils/urls'
-
+import Modal from '../modal/Modal'
 const types = [
     {value: 'direct deduction', content: 'Direct deduction'},
     {value: 'percentage deduction', content: 'Percentage deduction'},
     {value: 'freeship', content: 'Freeship'}
 ]
 
+const renderDeleteModalHeader = () => (
+    <div>
+        Are you sure to delete this coupon?
+    </div>
+)
 const CouponForm = (props) => {
-    const {data, handleChange, action, handleSubmit, errors} = props
+    const {data, handleChange, action, handleSubmit, errors, handleDelete} = props
+    const [showModal, setShowModal] = useState(false)
+
+    const closeDeleteModal = () =>  {
+        setShowModal(false)
+    }
+
+    const del = () => {
+        handleDelete()
+        closeDeleteModal()
+    }
+
     return (
         <form onSubmit={handleSubmit}>
 
@@ -130,13 +146,34 @@ const CouponForm = (props) => {
             <div className="form__actions">
         <div>
           {action !== "add" ? (
-            <Button
-              type="button"
-              variant="danger"
-              onClick={() => props.handleDelete(data.id)}
-            >
-              Delete
-            </Button>
+            <div>
+                <Button
+                  type="button"
+                  variant="danger"
+                  onClick={() => setShowModal(true)}
+                >
+                  Delete
+                </Button>
+                <Modal
+                    show={showModal}
+                    onHide = {() => closeDeleteModal()}
+                    variant="small"
+                    renderHeader = {renderDeleteModalHeader}
+                >
+                     <div className='flex space_between'>
+                        <Button variant='light'
+                            onClick = {() => closeDeleteModal()}
+                        >
+                            Cancel    
+                        </Button>
+                        <Button
+                            onClick={() => del()}
+                        >
+                            OK
+                        </Button>            
+                    </div>
+                </Modal>
+            </div>
           ) : null}
         </div>
         <div className="actions">

@@ -14,15 +14,21 @@
 }
 
 .badge-warning {
-    --bg-color: var(--main-color-orange);
-
+    --bg-color: var(--main-color-orange)
 }
 
 .badge-primary {
     --bg-color: var(--main-color-blue);
-
 }
 
 .badge-success {
     --bg-color: rgb(4, 158, 132);
+}
+
+.badge-secondary {
+    --bg-color: #3700b3;
+}
+.badge-info {
+    --bg-color: #03dac6;
+    color: #000;
 }

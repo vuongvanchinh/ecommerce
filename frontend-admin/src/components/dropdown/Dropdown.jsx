@@ -41,13 +41,16 @@ const Dropdown = (props) => {
             }
             </button>
             <div ref={ dropdown_content_el } className="dropdown__content">
-            {
+                {
                     props.contentData && 
                     props.renderItems ? props.contentData.map((item, index) => (
                         <div onClick={onClick} key={index}>
                             {props.renderItems(item, index)}
                         </div>
                     )) : ''
+                }
+                {
+                    props.renderBody? (props.renderBody()):null
                 }
                 {
                     props.renderFooter ? (

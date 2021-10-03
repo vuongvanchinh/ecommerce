@@ -196,3 +196,21 @@ input:focus {
     justify-content: center;
     align-items: center;
 }
+.flex {
+    display: flex;
+}
+.space_between {
+    justify-content: space-between;
+}
+.padding-1rem {
+    padding: 1rem;
+}
+.padding8px {
+    padding: 0.5rem;
+}
+.flex-space-between {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+
+}

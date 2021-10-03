@@ -16,6 +16,11 @@ const orderApi = {
     deleteOrder: (id) => {
         const url = `order/${id}/`
         return axiosClient.delete(url)
+    },
+    
+    changeStatus: (id, data) => {
+        const url = `order/${id}/change_status/`
+        return axiosClient.post(url, data)
     }
 }
 

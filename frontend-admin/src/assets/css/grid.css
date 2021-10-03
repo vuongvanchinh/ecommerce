@@ -175,10 +175,12 @@
 }
 
 .grid {
+    --col: 1;
     display: grid;
     width: 100%;
     row-gap: 15px;
     column-gap: 15px;
+    grid-template-columns: repeat(var(--col), 1fr);
 }
 
 .padding_0 {
@@ -186,14 +188,14 @@
 }
 
 .grid-col-1 {
-    grid-template-columns: repeat(1, 1fr);
+    --col: 1;
 }
 
 .grid-col-2 {
-    grid-template-columns: repeat(2, 1fr);
+    --col: 2;
 }
 .grid-col-3 {
-    grid-template-columns: repeat(3, 1fr);
+    --col: 3;
 }
 .grid-col-4 {
     grid-template-columns: repeat(4, 1fr);

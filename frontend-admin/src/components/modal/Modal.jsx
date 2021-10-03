@@ -1,7 +1,7 @@
 import React, {useRef, useEffect} from 'react'
 import './modal.css'
 
-const Model = (props) => {
+const Modal = (props) => {
     let {variant} = props;
     const {renderHeader, renderFooter, onHide, show } = props;
     const modal = useRef(null)
@@ -19,8 +19,9 @@ const Model = (props) => {
         
         return () => {
             document.removeEventListener('mousedown', clickOutSide)
+            document.body.style.overflow ="auto"
         }
-    }, [])
+    }, [onHide])
 
     useEffect(() => {
         if(show) {
@@ -61,10 +62,10 @@ const Model = (props) => {
     )
 }
 
-Model.defaultProps = {
+Modal.defaultProps = {
     show:false,
     onHide: () => {},
     variant: "medium"
 }
 
-export default Model
+export default Modal

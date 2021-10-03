@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {Link} from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { useParams, useHistory } from "react-router-dom";
@@ -6,7 +6,7 @@ import Button from "../../components/button/Button";
 import {
   onClear,
   onSetNewOrder,
-  onChange,
+  // onChange,
 } from "../../redux/features/order_crud";
 import Table from "../../components/table/Table";
 import { updateOrder } from "../../redux/features/order_list";
@@ -14,7 +14,18 @@ import orderApi from "../../utils/api/orderApi";
 import Quote from "../../components/quote/Quote";
 import './order.css'
 import Timeline from "../../components/timeline/Timeline";
-const unconfirm_string = 'unconfirmed'
+import Modal from '../../components/modal/Modal'
+
+// const unconfirm_string = 'unconfirmed'
+const order_status = {
+  unconfirmed: 'unconfirmed',
+  canceled: 'canceled',
+  shipping: 'shipping',
+  delivered: 'delivered',
+  returned: 'returned'
+ 
+}
+
 const productHeader = [
   "Product",
   "Variant",
@@ -34,7 +45,7 @@ const status = [
   'Waiting confirm',
   'Shipping',
   'Delivered',
-  'Return'
+  'Returned'
 ]
 
 const renderTableHead = (item, index) => <td key={index}>{item}</td>;
@@ -49,12 +60,77 @@ const renderTableBodyProduct = (item, index) => (
     <td>{item.price * item.quantity}</td>
   </tr>
 );
+
+const modal_headers = {
+  unconfirmed: 'Are you sure unconfirm this order?',
+  canceled: 'This order has actually been canceled? (wont be able to go back)',
+  delivered: 'Has this order been delivered?',
+  returned: 'This order was actually returned? (can not back)',
+  shipping: 'Are you sure confirm this order?'
+}
+
+
+let modalHeader = null
+let modalBody = null
+
 const OrderDetail = () => {
   // const history = useHistory();
   const { id } = useParams();
   const orders = useSelector((state) => state.order_list.data);
   const order = useSelector((state) => state.order_crud);
   const dispatch = useDispatch();
+  const [showModal, setShowModal] = useState(false)
+  
+  const onHide = () => {
+    setShowModal(false)
+  }
+  const changeStatus = (sta) => {
+    let data = null
+    switch (sta) {
+      case order_status.unconfirmed:
+        data = {status: order_status.unconfirmed}
+        break;
+      case order_status.shipping:
+        data = {status: order_status.shipping}
+        break;
+      case order_status.canceled:
+        data = {status: order_status.canceled}
+        break;
+      case order_status.returned:
+        data = {status: order_status.returned}
+        break;
+        case order_status.delivered:
+          data = {status: order_status.delivered}
+          break;
+      default:
+        break;
+    }
+    if (data) {
+      ;(async () => {
+        try {
+          let res = await orderApi.changeStatus(order.id, data)
+          if (res.status === 200) {
+            dispatch(updateOrder(res.data))
+            setShowModal(false)
+          }
+        } catch (error) {
+          
+        }
+      })()
+    }
+
+  }
+  const renderModalBody = (type) => (
+    <div className="flex-space-between">
+      <Button variant='light' onClick={() => onHide()}>Cancel</Button>
+      <Button onClick={() => changeStatus(type)}>Ok</Button>
+    </div>
+  )
+  const showStatusModal = (type) => {
+    modalBody = renderModalBody(type)
+    modalHeader =  modal_headers[type]//
+    setShowModal(true)
+  }
 
   useEffect(() => {
     let index = orders.findIndex((order) => order.id.toString() === id);
@@ -96,9 +172,53 @@ const OrderDetail = () => {
                 ></div>
                 <span>{order.paid ? "Paid" : "Unpaid"}</span>
               </div>
-              {order.status && order.status === unconfirm_string ? (
-                <Button>Confirm</Button>
-              ) : null}
+              <div className='flex-space-between'>
+                {order.status && order.status === order_status.unconfirmed ? (
+                  <Button
+                    onClick={() => showStatusModal(order_status.shipping)}
+                  >Confirm</Button>
+                ) : null}
+                {order.status && order.status === order_status.shipping ? (
+                  <div className='grid grid-col-3 grid-col-sm-1'>
+                   
+                    <Button variant='primary'
+                       onClick={() => showStatusModal(order_status.unconfirmed)}
+                    >
+                      UnConfirmed
+                    </Button>
+                    <Button variant='danger'
+                       onClick={() => showStatusModal(order_status.canceled)}
+                    >
+                      Canceled
+                    </Button>
+                    <Button
+                       onClick={() => showStatusModal(order_status.delivered)}
+                    >
+                      Delivered
+                    </Button>
+                   
+                  </div>
+                ) : null}
+                {order.status && order.status === order_status.delivered ? (
+                  <>
+                    <Button variant='danger'
+                       onClick={() => showStatusModal(order_status.returned)}
+                    >
+                      Returned
+                    </Button>
+                  </>
+
+                ) : null}
+
+                <Modal 
+                  show={showModal}
+                  onHide={() => onHide()}
+                  renderHeader = {() => modalHeader}
+                  variant='small'
+                > 
+                  { modalBody }
+                </Modal>
+              </div>
             </div>
             <div className="form-card__body">
               <Table
@@ -195,7 +315,7 @@ const OrderDetail = () => {
               </div>
             </div>
           </div>
-          <Button variant='dash'>
+          <Button variant='dash' onClick={() => alert("This feature has not implement yet")}>
             Generate invoice
           </Button>
         </div>

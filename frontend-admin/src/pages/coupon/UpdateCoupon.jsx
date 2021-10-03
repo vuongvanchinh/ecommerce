@@ -41,13 +41,13 @@ const UpdateCoupon = () => {
     const coupon_crud = useSelector(state => state.coupon_crud)
     const coupons = useSelector(state => state.coupon_list.data)
     const dispatch = useDispatch()
-    const {code} = useParams();
+    const {id} = useParams();
     const handleChange = (dt) => {
         dispatch(onChange(dt))
     }
     const index = useMemo(() => {
-        return coupons.findIndex(item => item.code === code)
-    }, [coupons, code])
+        return coupons.findIndex(item => item.code === id)
+    }, [coupons, id])
 
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -79,6 +79,20 @@ const UpdateCoupon = () => {
         
     }
 
+    const handleDelete = () => {
+        ;(async () => {
+            try {
+                let res = await couponApi.deleteCoupon(coupon_crud.id)
+                console.log(res)
+                if (res.status === 204) {
+                    history.push(couponListPage())
+                }
+            } catch (error) {
+                history.push(couponListPage())
+            }
+        })()
+    }
+
     useEffect(() => {
         console.log("Render update coupon") 
         document.title = "Update Coupon"
@@ -93,7 +107,7 @@ const UpdateCoupon = () => {
         }
     }, [])
 
-    if (!coupon_crud.code) {
+    if (!coupon_crud.id) {
         return <div className='flex-center' style={{ minHeight: '70vh'}}>
                 <Loader variant='medium'/>
         </div>
@@ -111,7 +125,7 @@ const UpdateCoupon = () => {
                 handleSubmit={ handleSubmit}
                 errors={coupon_crud.errors}
                 action="update"
-                // handleDelete={ handleDelete}
+                handleDelete={ handleDelete}
             />
             
         </div>

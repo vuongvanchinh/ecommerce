@@ -11,6 +11,7 @@
     /* z-index: 999999; */
     background-color: rgba(0,0,0,0.25);
     transition: all 0.5s ease-out;
+    z-index: 99;
 }
 
 .modal {
@@ -92,14 +93,14 @@
 
 @media screen and (max-width: 767px) {
     .modal_large {
-        --width: 100%;
+        --width: 95%;
     }
     .modal_medium {
         --width: 95%;
     }
   
     .modal_small {
-        --width: 80%;
+        --width: 75%;
     }
 
 }

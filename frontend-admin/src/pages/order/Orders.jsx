@@ -12,6 +12,15 @@ import OrderDetail from './OrderDetail'
 import orderApi from "../../utils/api/orderApi";
 import {setNewListOrder, selectOrders } from '../../redux/features/order_list'
 // import SelectImageItem from "../../components/form/selectimage/selectImageItem/SelectImageItem";
+import Badge from "../../components/badge/Badge"
+
+const status = {
+  unconfirmed: 'secondary',
+  shipping: 'info',
+  canceled: 'warning',
+  dilivered: 'sussess',
+  returned: 'danger'
+}
 
 const orderTableHead = [
   "id",
@@ -30,9 +39,9 @@ const renderOrderHead = () => orderTableHead.map((item, index) => {
 })
 
 const searchFields = [
-  {value: "name", content:"Customer"},
-  {value: "created", content:"Date"},
-  {value: "status", content:"Total"}
+  {value: "status", content:"Status"},
+  {value: "total_payment", content:"Total"},
+  // {value: "status", content:"Total"}
 ];
 
 const actions = [
@@ -81,7 +90,10 @@ const renderOrderBody = (item, index) => (
         <span>{item.paid? "Paid":"Unpaid"}</span>
       </div>
     </td>
-    <td>{item.status}</td>
+    <td>
+      <Badge content={item.status} type={status[item.status]}/>
+      
+    </td>
     <td>{item.city}</td>
     <td>{item.total}</td>
   </>
@@ -135,9 +147,9 @@ const Orders = () => {
           
           <div className="page-header">
             <h2>Orders</h2>
-            <NavLink to={`${url}/add`}>
+            {/* <NavLink to={`${url}/add`}>
                 <Button>Create new order</Button>
-            </NavLink>
+            </NavLink> */}
           </div>
 
           <div className="row">

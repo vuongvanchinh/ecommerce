@@ -11,7 +11,7 @@
     transition: var(--sidebar-scale-transition);
     --logo-height: 150px;
     --sidebar-item-padding: 0 20px;
-    z-index: 9999;
+    z-index: 2;
 }
 
 .sidebar__logo {

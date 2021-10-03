@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useMemo} from 'react'
 import { NavLink } from 'react-router-dom'
 import './sidebar.css'
 import sidebar_items from '../../assets/JsonData/sidebar_routes.json'
@@ -20,8 +20,19 @@ const SidebarItem = (props) => {
 
 const Sidebar = (props) => {
     // console.log(props)
-    const activeItem = sidebar_items.findIndex(item => (item.route === props.location.pathname))
-    
+    const activeItem = useMemo(() => {
+        if (props.location.pathname === sidebar_items[0].route) {
+            return 0;
+        }
+        for (let i = 1; i < sidebar_items.length; i++) {
+            if (props.location.pathname.includes(sidebar_items[i].route)) {
+                return i
+            }
+        }
+        return -1
+    }, [props.location.pathname])
+
+    console.log(props.location.pathname)
     return (
         <div className="sidebar">
            <div className="sidebar__logo">

@@ -10,7 +10,7 @@ const couponApi = {
         return axiosClient.post(url, data)
     },
     updateCoupon: (data) => {
-        const url = `${base}/${data.code}/`
+        const url = `${base}/${data.id}/`
         return axiosClient.put(url, data)
     }, 
     deleteCoupon: (id) => {

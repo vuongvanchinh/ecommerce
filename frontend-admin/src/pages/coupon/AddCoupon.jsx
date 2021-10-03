@@ -75,6 +75,7 @@ const AddCoupon = () => {
         
     }
 
+    
     useEffect(() => {
         console.log("Render add coupon") 
         document.title = "Add Coupon"
@@ -94,7 +95,7 @@ const AddCoupon = () => {
                 handleSubmit={ handleSubmit}
                 errors={coupon_crud.errors}
                 action="add"
-                // handleDelete={ handleDelete}
+               
             />
             
         </div>
