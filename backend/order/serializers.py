@@ -4,7 +4,6 @@ from .models import OrderItem, Order, PaymentMethod, ShippingMethod
 # from product.models import ProductVariant, Product
 
 class OrderItemSerializer(serializers.ModelSerializer):
-    # image = serializers.SerializerMethodField()
     class Meta:
         model = OrderItem
         fields = ['id', 'quantity', 'product',
@@ -15,18 +14,14 @@ class OrderItemSerializer(serializers.ModelSerializer):
 class OrderItemReadOnlySerializer(serializers.ModelSerializer):
     image = serializers.SerializerMethodField()
     product = serializers.SerializerMethodField()
-    coupon = serializers.SerializerMethodField()
-
+    
     class Meta:
         model = OrderItem
         fields = ['id', 'quantity', 'product',
                     'price', 'product_name',
                     'variant_name', 'product_sku',
-                    'variant', 'image', 'coupon']
-    def get_coupon(self, instance):
-        if (instance.coupon):
-            return None
-        return instance.coupon.code
+                    'variant', 'image']
+   
         
     def get_image(self, instance):
         request = self.context.get('request')
@@ -40,13 +35,18 @@ class OrderItemReadOnlySerializer(serializers.ModelSerializer):
 class OrderSerializer(serializers.ModelSerializer):
     items = OrderItemSerializer(many=True, required=True)
     created = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
+    coupon = serializers.SerializerMethodField()
     class Meta:
         model = Order
         fields = ['id', 'user', 'name','phone','email',
                 'city', 'district',
                 'commune', 'detail_address',
-                'note', 'payment_method',
-                'shipping_method', 'created', 'status','items']
+                'note', 'created', 'status','items', 'coupon', 'payment_method','shipping_method']
+    
+    def get_coupon(self, instance):
+        if (instance.coupon):
+            return None
+        return instance.coupon.code
     
     def create(self, validated_data):
         user = self.context.get('user', None)
@@ -86,11 +86,11 @@ class PaymentMethodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = PaymentMethod
-        fields= ['name', 'active']
+        fields= ['id', 'name', 'active']
     
 class ShippingMethodSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ShippingMethod
-        fields = ['name', 'active']
+        fields = ['id', 'name', 'active', 'fee']
         

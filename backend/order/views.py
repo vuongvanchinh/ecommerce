@@ -1,14 +1,18 @@
-from rest_framework import viewsets
+from rest_framework import status, viewsets
+from rest_framework.decorators import action, api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import action, api_view, permission_classes
-from rest_framework import status
 
-# Create your views here.
-from .serializers import OrderItemSerializer, OrderSerializer, PaymentMethodSerializer, ShippingMethodSerializer, OrderReadOnlySerializer
-from .models import Order, PaymentMethod, ShippingMethod
 from . import OrderStatus
+from .models import Order, PaymentMethod, ShippingMethod
+# Create your views here.
+from .serializers import (OrderItemSerializer, OrderReadOnlySerializer,
+                          OrderSerializer ,PaymentMethodSerializer,
+                            ShippingMethodSerializer
+                          )
+from .util import cancel, confirmed, delivered, returned, unconfirmed
+
 
 class OrderViewSet(viewsets.ModelViewSet):
     serializer_class = OrderSerializer
@@ -49,6 +53,40 @@ class OrderViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
         return Response(OrderReadOnlySerializer(order,  context={'request': request}).data)
     
+    @action(detail=True, methods=['POST'])
+    def change_status(self, request, pk):
+        order = Order.objects.get(pk=pk)
+        s = request.data.get('status', None)
+        if order and s:
+            if s == OrderStatus.CANCELED:
+                if cancel(order):
+                   return Response(OrderReadOnlySerializer(order,  context={'request': request}).data)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+            if s == OrderStatus.SHIPPING:
+                if confirmed(order):
+                   return Response(OrderReadOnlySerializer(order,  context={'request': request}).data)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+
+            if s == OrderStatus.UNCONFIRMED:
+                if unconfirmed(order):
+                   return Response(OrderReadOnlySerializer(order,  context={'request': request}).data)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+            if s == OrderStatus.DELIVERRED:
+                if delivered(order):
+                   return Response(OrderReadOnlySerializer(order,  context={'request': request}).data)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+            if s == OrderStatus.RETURNED:
+                if returned(order):
+                   return Response(OrderReadOnlySerializer(order,  context={'request': request}).data)
+                return Response(status=status.HTTP_400_BAD_REQUEST)
+            
+            return Response(status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_400_BAD_REQUEST)
+
+    
     
 class PaymentMethodViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentMethodSerializer
@@ -72,6 +110,7 @@ class ShippingMethodViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAdminUser]
 
         return [permission() for permission in permission_classes]
+
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])# new

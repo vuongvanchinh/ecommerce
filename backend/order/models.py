@@ -4,13 +4,14 @@ from . import OrderStatus
 
 # Create your models here.
 class ShippingMethod(models.Model):
-    name = models.CharField(max_length=200, primary_key=True)
+    name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
+    fee = models.DecimalField(max_digits= 8, decimal_places=2, default=0)
 
 class PaymentMethod(models.Model):
-    name = models.CharField(max_length=200, primary_key=True)
+    name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
-    
+    coupon = models.ForeignKey('coupon.Coupon', null=True, related_name='payment_methods', on_delete=models.SET_NULL)
 
 class Order(models.Model):
     user = models.ForeignKey("account.User", 
@@ -39,7 +40,6 @@ class Order(models.Model):
     
     coupon = models.ForeignKey('coupon.Coupon', null=True, default=None, on_delete=models.SET_NULL)
     total_payment = models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-
     class Meta:
         ordering=('-created', )
     

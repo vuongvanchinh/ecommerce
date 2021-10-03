@@ -1,0 +1,7 @@
+/backend/.databases
+backend/.databases
+backend/data
+/backend/data
+*.pyc
+
+
