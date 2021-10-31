@@ -5,10 +5,11 @@
    
     /* border: 1px solid #000; */
     background-color: var(--main-bg);
-    /* box-shadow: var(--box-shadow); */
+    box-shadow: var(--box-shadow);
     border-radius: var(--border-radius);
     box-sizing: border-box;
     user-select: none;
+
     /* background-color: red; */
 }
 

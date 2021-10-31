@@ -24,7 +24,7 @@ import Cart from "../components/cart/Cart"
 import {useRouter} from 'next/router'
 import LoginForm from "../components/loginform/LoginForm"
 import Loader from "../components/loader/Loader"
-import { setNewCart } from "../redux/features/cart"
+import { setNewCart, deleteItem, updateItem } from "../redux/features/cart"
 
 const validate = (data) => {
   let errors = {}
@@ -72,7 +72,7 @@ const initialState = {
   note: "",
   payment_method: "",
   shipping_method: "",
-
+  coupon: null,
   errors: {
 
   }
@@ -83,9 +83,9 @@ const style = {
   backgroundColor: "transparent",
 }
 
-const renderModalHeader = () => (
-  <p>Discount</p>
-)
+let renderModalHeader = null
+
+let renderModalBody = null
 
 const Checkout = (props) => {
   // const cart = useSelector(state => state.cart)
@@ -96,10 +96,9 @@ const Checkout = (props) => {
   const [data, setData] = useState(initialState)
   const [show_modal, setShowModal] = useState(false)
   const [success, setSuccess] = useState(false)
-  const [payment_methods, setPaymentMethods] = useState(false) // false is state when hasn't call api, after call api it going to be array
-  const [shipping_methods, setShippingMethod] = useState(false)
+  const [payment_methods, setPaymentMethods] = useState([]) // false is state when hasn't call api, after call api it going to be array
+  const [shipping_methods, setShippingMethod] = useState([])
 
-  
 
   const [loading, setLoading] = useState(true)
   const router = useRouter()
@@ -155,6 +154,7 @@ const Checkout = (props) => {
       ...data,
       errors
     })
+    //not  errors  validate 
     if(Object.keys(errors).length === 0) {
       let order_items = cart.map((item, index) => {
         return {
@@ -174,7 +174,7 @@ const Checkout = (props) => {
           ...data,
           items: order_items
         }
-        console.log(dt)
+        console.log(JSON.stringify(dt))
 
         try {
           setLoading(true)
@@ -184,11 +184,63 @@ const Checkout = (props) => {
             setSuccess(true)
             dispatch(setNewCart([]))
           } else {
-            // handle error
+            // handle error send from server 
+            if(res.data.out_of_stock) {
+              let d = res.data.out_of_stock
+              /// show modal 
+              renderModalHeader = () => (
+                <p>{d.message}</p>
+              )
+              renderModalBody = () => {
+                if (parseInt(d.current_stock) === 0) {
+                  return (
+                    <div>
+                      <p style ={{marginBottom: '1rem'}}>This items will be delete from cart?</p>
+                      <p>
+                        <Button
+                          onClick={() => {
+                            dispatch(deleteItem(parseInt(d.index)))
+                            router.push(cartPage())
+                          }}
+                        >OK</Button>
+                      </p>
+                    </div>
+
+                  )
+                } else {
+                  return (
+                    <div>
+                      <p style ={{marginBottom: '1rem'}}>This items's quantity will be set to {d.current_stock}</p>
+                      <p>
+                        <Button
+                          onClick={() => {
+                            dispatch(updateItem(
+                              {
+                                index: parseInt(d.index), 
+                                name:'quantity', 
+                                value: parseInt(d.current_stock)
+                              }))
+                            router.push(cartPage())
+                          }}
+                        >OK</Button>
+                      </p>
+                    </div>
+
+                  )
+                }
+              }
+
+              setLoading(false)
+              setShowModal(true)
+            } else {
+              setData({
+                ...data,
+                errors: res.data
+              })
+            }
+           
             setLoading(false)
           }
-          
-
         } catch (error) {
           alert('There are error')
         }
@@ -213,7 +265,15 @@ const Checkout = (props) => {
     })
   }
 
-  const showModal = () => {
+  const showDiscountModal = () => {
+    renderModalHeader = () => (
+      <p>Available coupons discount</p>
+    )
+    renderModalBody = () => (
+      <ul>
+        Haven't coupon yet.
+      </ul>
+    )
     setShowModal(true)
   }
 
@@ -250,6 +310,15 @@ const Checkout = (props) => {
     }
     return res
   }, [data.district, districts])
+
+  let shipping = useMemo(() => {
+    if (!data.shipping_method) {
+      return 0
+    } else {
+      let index = shipping_methods.findIndex(item => item.id === data.shipping_method)
+      return shipping_methods[index].fee
+    }
+  }, [data.shipping_method, shipping_methods])
 
   if (success) {//after checkout success
     router.push(orderPage())
@@ -293,8 +362,8 @@ const Checkout = (props) => {
         <title>Checkout</title>
       </Head>
 
-      {payment_methods !== false && payment_methods.length == 0 || 
-      shipping_methods !== false && shipping_methods.length == 0 ? (
+      { payment_methods.length == 0 || 
+        shipping_methods.length == 0 ? (
         <p>System is not ready to order</p>
       ) : (
         
@@ -302,7 +371,12 @@ const Checkout = (props) => {
           onSubmit={(e) => handleSubmit(e)}
           className={st.checkout_page}>
           <div className={`${st.form_section} margin-top-1rem `}>
-            
+              <Modal
+                show={show_modal}
+                onHide={() => setShowModal(false)}
+                renderHeader={renderModalHeader}
+                renderBody={renderModalBody}
+              />
               <div className="card ">
                 <div className="card_header forn-weight-500">
                   Shipping Information
@@ -417,9 +491,9 @@ const Checkout = (props) => {
                           label={item.name}
                           id={item.name}
                           name="shipping_method"
-                          checked={data.shipping_method === item.name}
-                          checked_value={item.name}
-                          unchecked_value=""
+                          checked={data.shipping_method === item.id}
+                          checked_value={item.id}
+                          unchecked_value={null}
                           onChange={(dt) => onChange(dt)}
                         />
                       ))
@@ -443,9 +517,9 @@ const Checkout = (props) => {
                           label={item.name}
                           id={item.name}
                           name="payment_method"
-                          checked={data.payment_method === item.name}
-                          checked_value={item.name}
-                          unchecked_value=""
+                          checked={data.payment_method === item.id}
+                          checked_value={item.id}
+                          unchecked_value={null}
                           onChange={(dt) => onChange(dt)}
                         />
                       ))
@@ -464,14 +538,10 @@ const Checkout = (props) => {
                 <div className={st.cart_footer}>
                   <p
                     className={`${st.discount} ${st.label} ${st.link}`}
-                    onClick={() => showModal()}
+                    onClick={() => showDiscountModal()}
                   >
                     Select voucher?
-                    <Modal
-                      show={show_modal}
-                      onHide={() => setShowModal(false)}
-                      renderHeader={renderModalHeader}
-                    />
+                    
                   </p>
                   <Link href={cartPage()}>
                     <p className={`${st.label} ${st.link}`}>Edit your cart</p>
@@ -491,14 +561,23 @@ const Checkout = (props) => {
                       </td>
                       <td>
                         <span className={st.label}>:</span>
-                        <span className={"price"}>30.000</span>
+                        <span className={"price"}>{shipping === 0? "hasn't selected yet ": priceNumber(shipping)}</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <span className={st.label}>Coupon discount</span>
+                      </td>
+                      <td>
+                        <span className={st.label}>:</span>
+                        <span className={"price"}>0</span>
                       </td>
                     </tr>
                     <tr>
                       <td className={st.label}>Provisional total payment</td>
                       <td>
                         <span className={st.label}>:</span>
-                        <span className={"price"}>{priceNumber(total + 30000)}</span>
+                        <span className={"price"}>{priceNumber(total + parseFloat(shipping))}</span>
                       </td>
                     </tr>
                   </tbody>

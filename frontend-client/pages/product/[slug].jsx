@@ -111,7 +111,7 @@ const ProductDetail = (props) => {
                 <meta name="author" content={`cdev.com`}/>
             </Head>
            
-           <div className="max_width_1280 margin_center ">
+           <div className="max_width_1280 margin_center padding:0 0.5rem">
             <div className="section">
                 <ProductView 
                     data = {dt}
@@ -125,7 +125,7 @@ const ProductDetail = (props) => {
 
                 />
             </div>
-            <div className="section">
+            <div className="section" >
                 <p className={`uppercase font-weight-500`}>Description</p>
                 <p className={`margin-top-1rem`}>
                     {dt.description}
