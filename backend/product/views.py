@@ -201,7 +201,7 @@ def getRecommendProducts(request, slug):
     product = Product.objects.get(slug=slug)
     if not product:
         return Response(status=status.HTTP_404_NOT_FOUND)
-    res = Product.objects.filter(is_published=True).exclude(slug=slug)
+    res = Product.objects.filter(is_published=True).exclude(slug=slug)[:4]
     data = ProductListSerializer(res, context={'request': request}, many=True).data
    
     return Response(data)

@@ -28,7 +28,7 @@ class CartItemSerializer(serializers.ModelSerializer):
             if variant.quantity_in_stock == 0 or variant.quantity_in_stock < quantity:
                 raise serializers.ValidationError({'quantity': 'Quanity over quantity in stock.'})
             if product.id != variant.product.id:
-                raise ValidationError({'product': 'Product and variant do not belog together'})
+                raise serializers.ValidationError({'product': 'Product and variant do not belog together'})
         else: 
             raise serializers.ValidationError({'variant': 'Variant is required'})
         return dt

@@ -8,11 +8,19 @@ class ShippingMethod(models.Model):
     active = models.BooleanField(default=True)
     fee = models.DecimalField(max_digits= 8, decimal_places=2, default=0)
 
+    def apply(self, pre_cost):
+        return pre_cost + self.fee
+
 class PaymentMethod(models.Model):
     name = models.CharField(max_length=200)
     active = models.BooleanField(default=True)
     coupon = models.ForeignKey('coupon.Coupon', null=True, related_name='payment_methods', on_delete=models.SET_NULL)
 
+    def apply(self, pre_cost):
+        if (self.coupon):
+            return self.coupon.apply(pre_cost)
+        return pre_cost
+        
 class Order(models.Model):
     user = models.ForeignKey("account.User", 
                 related_name='orders', 

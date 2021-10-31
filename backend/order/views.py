@@ -8,7 +8,7 @@ from . import OrderStatus
 from .models import Order, PaymentMethod, ShippingMethod
 # Create your views here.
 from .serializers import (OrderItemSerializer, OrderReadOnlySerializer,
-                          OrderSerializer ,PaymentMethodSerializer,
+                          OrderSerializer, PaymentMethodReadOnlySerializer ,PaymentMethodSerializer,
                             ShippingMethodSerializer
                           )
 from .util import cancel, confirmed, delivered, returned, unconfirmed
@@ -90,8 +90,22 @@ class OrderViewSet(viewsets.ModelViewSet):
     
 class PaymentMethodViewSet(viewsets.ModelViewSet):
     serializer_class = PaymentMethodSerializer
-    queryset = PaymentMethod.objects.filter(active=True)
+    queryset = PaymentMethod.objects.all()
+    
+    def get_queryset(self):
+        queryset = PaymentMethod.objects.all()
+        if self.action != 'list':
+            return queryset
 
+        if not self.request.user or not self.request.user.is_staff or self.request.query_params.get('mode', None) != 'full':
+            return queryset.filter(active=True)
+        return queryset
+    
+    def get_serializer_class(self):
+        if self.action in ('list', 'retrieve'):
+            return PaymentMethodReadOnlySerializer
+        return PaymentMethodSerializer
+        
     def get_permissions(self):
         if self.action in ('list, retrieve'):
             permission_classes = [AllowAny]
@@ -99,9 +113,19 @@ class PaymentMethodViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAdminUser]
 
         return [permission() for permission in permission_classes]
+
 class ShippingMethodViewSet(viewsets.ModelViewSet):
     serializer_class = ShippingMethodSerializer
-    queryset = ShippingMethod.objects.filter(active=True)
+    queryset = ShippingMethod.objects.all()
+
+    def get_queryset(self):
+        queryset = ShippingMethod.objects.all()
+        if self.action != 'list':
+            return queryset
+            
+        if not self.request.user or not self.request.user.is_staff or self.request.query_params.get('mode', None) != 'full':
+            return queryset.filter(active=True)
+        return queryset
 
     def get_permissions(self):
         if self.action in ('list, retrieve'):
@@ -110,7 +134,6 @@ class ShippingMethodViewSet(viewsets.ModelViewSet):
             permission_classes = [IsAdminUser]
 
         return [permission() for permission in permission_classes]
-
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])# new
@@ -122,6 +145,8 @@ def createOrder(request):
     if s.is_valid():
         s.save()
         return Response(s.data, status=status.HTTP_201_CREATED)
+        # print('valid')
+        # return Response()
     return Response(s.errors, status=status.HTTP_400_BAD_REQUEST)   
 
 @api_view(['GET'])
