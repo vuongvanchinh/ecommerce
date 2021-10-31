@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory, useLocation } from 'react-router-dom';
+import LoadingPage from '../../components/loadingPage/LoadingPage';
 import ProductForm from '../../components/productform/ProductForm';
 import { onClear ,onChange, onSetNewProduct} from '../../redux/features/product_crud';
 import {updateProduct, deleteProducts} from '../../redux/features/product_list'
 
 import productApi from '../../utils/api/productApi';
+import { productListPage } from '../../utils/urls';
 const dataSumit = (dt) => {
     let data = JSON.parse(JSON.stringify(dt));
     delete data.errors;
@@ -65,6 +67,8 @@ const UpdateProduct = () => {
     const {slug} = useParams();
     const products = useSelector(state => state.product_list.data)
     const product_crud = useSelector(state => state.product_crud)
+    const [loading, setLoading] = useState(true)
+
     const dispatch = useDispatch()
 
     const handleChange = (dt) => {
@@ -104,13 +108,12 @@ const UpdateProduct = () => {
                 console.log(res)
                 if (res.status === 204) {
                     dispatch(deleteProducts([id]))
-                    history.push('/dashboard/products')
+                    history.push(productListPage())
                 } else if (res.status === 403) {
                     history.push('/login')
                 }
-                
             } catch(error) {
-                console.log(error)
+                alert("Error")
             }
         }
         console.log("Delete product", id)
@@ -121,17 +124,24 @@ const UpdateProduct = () => {
     useEffect(() => {
         let current_index = products.findIndex(product => product.slug === slug); 
         console.log("Render Update Product ", current_index)
-        if (current_index >= 0) {
-            console.log("call set new crud product")
+        if (current_index >= 0) {            
             dispatch(onSetNewProduct(products[current_index]))
+            setLoading(false)
             document.title = products[current_index].name;
+        } else {
+            alert('Not found')
+            history.push(productListPage())
         }
+
         return () => {
             dispatch(onClear())
             console.log("Unmount Update Product ")
         }
-    }, [products])
+    }, [products, slug])
 
+    if (loading) {
+        return <LoadingPage />
+    }
     return (
         <div className="page-center">
             <div className="page-header">

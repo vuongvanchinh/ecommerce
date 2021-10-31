@@ -199,11 +199,14 @@ export const productSlice = createSlice({
             let imgs = action.payload;
             // console.log(imgs)
             state.change_image = true;
+            let new_list_imgs = []
             for (let i = 0; i< imgs.length; i++) {
                 let new_img = {...image};
                 new_img.image = imgs[i]
-                state.images.push(new_img)
+                new_img.order = state.images.length + new_list_imgs.length;
+                new_list_imgs.push(new_img)
             }
+            state.images.push(...new_list_imgs)
         }, 
         onChangeImage:(state, action) => {
             let {index, value} = action.payload;

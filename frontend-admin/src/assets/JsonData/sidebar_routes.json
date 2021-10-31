@@ -35,6 +35,16 @@
         "icon": "bx bx-gift"
     },
     {
+        "display_name": "shipping methods",
+        "route": "/dashboard/shipping-method",
+        "icon": "bx bxs-truck"
+    },
+    {
+        "display_name": "Payment methods",
+        "route": "/dashboard/payment-method",
+        "icon": "bx bx-receipt"
+    },
+    {
         "display_name": "inventory",
         "route": "/dashboard/inventory",
         "icon": "bx bx-store-alt"

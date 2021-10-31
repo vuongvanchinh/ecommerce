@@ -15,6 +15,8 @@ import Quote from "../../components/quote/Quote";
 import './order.css'
 import Timeline from "../../components/timeline/Timeline";
 import Modal from '../../components/modal/Modal'
+import LoadingPage from "../../components/loadingPage/LoadingPage";
+import { orderListPage } from "../../utils/urls";
 
 // const unconfirm_string = 'unconfirmed'
 const order_status = {
@@ -79,8 +81,9 @@ const OrderDetail = () => {
   const orders = useSelector((state) => state.order_list.data);
   const order = useSelector((state) => state.order_crud);
   const dispatch = useDispatch();
+  const history = useHistory()
   const [showModal, setShowModal] = useState(false)
-  
+  const [loading, setLoading] = useState(true)
   const onHide = () => {
     setShowModal(false)
   }
@@ -139,16 +142,20 @@ const OrderDetail = () => {
     if (index >= 0) {
       dispatch(onSetNewOrder(orders[index]));
       document.title = `Order #${orders[index].id}`;
+      setLoading(false)
     } else {
-      console.log(index, orders);
+     alert("Not found")
+     history.push(orderListPage())
     }
     return () => {
       dispatch(onClear());
       console.log("Unmount Order Detail ");
     };
-  }, [orders]);
+  }, [orders, id]);
 
-  // console.log("order", order)
+  if (loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="page-center">

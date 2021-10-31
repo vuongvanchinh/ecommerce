@@ -1,16 +1,19 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import CategoryForm from '../../components/categoryForm/CategoryForm'
+import LoadingPage from '../../components/loadingPage/LoadingPage';
 import { onClear, onSetNewCategory ,onChange} from '../../redux/features/category_crud';
 import {updateCategory, deleteCategories} from '../../redux/features/category_list'
-
 import categoryApi from '../../utils/api/categoryApi';
+import { categoryListPage } from '../../utils/urls';
+
 const UpdateCategory = () => {
     const history = useHistory()
     const {slug} = useParams();
     const categories = useSelector(state => state.category_list.data)
     const category_crud = useSelector(state => state.category_crud)
+    const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
 
     const handleChange = (dt) => {
@@ -75,7 +78,10 @@ const UpdateCategory = () => {
         if (current_index >= 0) {
             console.log("call set new crud category")
             dispatch(onSetNewCategory(categories[current_index]))
+            setLoading(false)
             document.title = categories[current_index].name
+        } else {
+            history.push(categoryListPage())
         }
         return () => {
             dispatch(onClear())
@@ -83,6 +89,9 @@ const UpdateCategory = () => {
         }
     }, [categories])
 
+    if (loading) {
+        return <LoadingPage />
+    }
     return (
         <div className="page-center">
             <div className="page-header">

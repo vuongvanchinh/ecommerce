@@ -43,7 +43,7 @@ const ProductForm = (props) => {
   let price = useRef(null);
   let truncate_content = useRef(null);
   let option = useRef(0)
-  let option_image_indexs = useRef([])
+  let option_image_indexs = useRef([]) // list int index of select images
 
   const [show_modal, setShowModal] = useState(false);
 
@@ -62,7 +62,8 @@ const ProductForm = (props) => {
       }
       getCategories()
     }
-
+    // focus to name field after render
+    document.getElementById('product_name').focus();
     return () => {
 
     }
@@ -197,13 +198,14 @@ const ProductForm = (props) => {
     
     setShowModal(true)
   }
-  const handleSelectOptionImages = (selected_list) => {
-    console.log("Hello")
+  const handleSelectOptionImages = (selected_list) => {    
+    console.log("selected list", selected_list)
     dispatch(onChangeOption({
       criterion_index: 0, option_index: option.current, name:"image_indexs", value:selected_list.join(" ")
     }))
     setShowModal(false)
   }
+  
   console.log("rerender product form")
   return (
     <>

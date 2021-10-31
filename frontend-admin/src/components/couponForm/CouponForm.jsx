@@ -9,7 +9,8 @@ import Modal from '../modal/Modal'
 const types = [
     {value: 'direct deduction', content: 'Direct deduction'},
     {value: 'percentage deduction', content: 'Percentage deduction'},
-    {value: 'freeship', content: 'Freeship'}
+    {value: 'freeship', content: 'Freeship'},
+    {value: 'promotion payment method', content: 'Promotion payment method'}
 ]
 
 const renderDeleteModalHeader = () => (

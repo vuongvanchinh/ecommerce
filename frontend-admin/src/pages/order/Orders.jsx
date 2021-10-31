@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { NavLink, Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ import orderApi from "../../utils/api/orderApi";
 import {setNewListOrder, selectOrders } from '../../redux/features/order_list'
 // import SelectImageItem from "../../components/form/selectimage/selectImageItem/SelectImageItem";
 import Badge from "../../components/badge/Badge"
+import LoadingPage from "../../components/loadingPage/LoadingPage";
 
 const status = {
   unconfirmed: 'secondary',
@@ -104,6 +105,7 @@ const renderOrderBody = (item, index) => (
 const Orders = () => {
   const { path, url } = useRouteMatch()
   const orderData = useSelector(state => state.order_list)
+  const [loading, setLoading] = useState(true)
   const dispatch = useDispatch()
 
   let history  = useHistory()
@@ -126,20 +128,26 @@ const Orders = () => {
           let res = await orderApi.getListOrder()
           if (res.status === 200) {
             dispatch(setNewListOrder(res.data))
-            console.log(res.data)
+            setLoading(false)
           }
         } catch (error) {
           console.log(error)
         }
       }
       getListOrder()
+    } else {
+      setLoading(false)
     }
+
     document.title = "Orders"
     return () => {
       console.log("Un mount orders component")
     }
   }, [])
 
+  if(loading) {
+    return <LoadingPage />
+  }
   return (
     <div className="page-center">
       <Switch>

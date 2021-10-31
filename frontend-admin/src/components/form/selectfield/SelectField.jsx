@@ -44,7 +44,7 @@ const SelectField = (props) => {
       [content_attr]: null,
     };
     if (options && value) {
-      let selected_index = options.findIndex((item) => item[value_attr] === value);
+      let selected_index = options.findIndex((item) => item[value_attr] === value)
       if (selected_index !== -1) {
         res = options[selected_index];
       }

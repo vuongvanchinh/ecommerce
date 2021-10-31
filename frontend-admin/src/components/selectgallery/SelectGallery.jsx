@@ -3,11 +3,13 @@ import "./selectgallery.css";
 import SelectImageItem from "../form/selectimage/selectImageItem/SelectImageItem";
 import Button from "../button/Button";
 const SelectGallery = (props) => {
-  let { images, selected_items, url_attr, value_attr, exportSelectedList } =
-    props;
+  
+  let { images, selected_items, url_attr, value_attr, exportSelectedList } = props;
   const [selected, setSelected] = useState(selected_items);
-  console.log(selected);
+  console.log(images)
+  
   const handlePick = (item) => {
+    console.log("item", item)
     let index = selected.findIndex((i) => item === i);
     if (index === -1) {
       setSelected([...selected, item]);
@@ -17,9 +19,11 @@ const SelectGallery = (props) => {
       setSelected(newState);
     }
   };
+
   const handleSave = () => {
     exportSelectedList(selected)
   };
+
   return (
     <div className="gallery_wraper">
       <div className="gallery">
@@ -32,9 +36,7 @@ const SelectGallery = (props) => {
             />
             <i
               className={`bx ${
-                selected.includes(img[value_attr])
-                  ? "bxs-checkbox-checked checkbox_icon"
-                  : "bx-checkbox"
+                selected.includes(img[value_attr])? "bxs-checkbox-checked checkbox_icon" : "bx-checkbox"
               } checkbox_icon`}
               onClick={() => handlePick(img[value_attr])}
             ></i>

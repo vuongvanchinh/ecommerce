@@ -1,18 +1,16 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { NavLink, Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
 
-// import Table from "../../components/table/Table";
 import TableExtra from "../../components/table/TableExtra";
 import Button from "../../components/button/Button";
 import AddUser from "./AddUser";
 import UpdateUser from './UpdateUser';
-// import Checkbox from "../../components/form/checkbox/Checkbox";
-// import customerList from "../../assets/JsonData/customers-list.json";
 import userApi from "../../utils/api/userApi";
 import {setNewListUser, selectUsers } from '../../redux/features/user_list'
 import SelectImageItem from "../../components/form/selectimage/selectImageItem/SelectImageItem";
+import LoadingPage from "../../components/loadingPage/LoadingPage";
 
 const customerTableHead = [
   "id",
@@ -61,12 +59,13 @@ const renderCustomerBody = (item, index) => (
 const Customers = () => {
   const { path, url } = useRouteMatch()
   const userData = useSelector(state => state.user_list)
+  const [loading, setLoading] = useState(true)
+
   const dispatch = useDispatch()
 
   let history  = useHistory()
   
   const selectItem = (dt) => {
-   
     dispatch(selectUsers(dt))
   }
 
@@ -85,12 +84,17 @@ const Customers = () => {
           let res = await userApi.getListUser(params)
           if (res.status === 200) {
             dispatch(setNewListUser(res.data))
+            setLoading(false)
+          } else {
+            alert('errors')
           }
         } catch (error) {
           console.log(error)
         }
       }
       getListUser()
+    } else {
+      setLoading(false)
     }
     
     document.title = "Customers"
@@ -98,6 +102,10 @@ const Customers = () => {
       console.log("Un mount customers component")
     }
   }, [])
+
+  if (loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="page-center">

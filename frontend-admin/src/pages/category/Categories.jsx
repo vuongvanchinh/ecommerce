@@ -1,4 +1,4 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { NavLink, Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
@@ -13,6 +13,7 @@ import categoryApi from "../../utils/api/categoryApi";
 import {setNewListCategory, selectCategories } from '../../redux/features/category_list'
 import SelectImageItem from "../../components/form/selectimage/selectImageItem/SelectImageItem";
 import { categoryAddPage, categoryUpdatePage } from "../../utils/urls"
+import LoadingPage from "../../components/loadingPage/LoadingPage";
 
 const categoryTableHead = [
   "id",
@@ -52,7 +53,9 @@ const renderCategoryBody = (item, index) => (
 
 const Categories = () => {
   const { path} = useRouteMatch()
+  const [loading, setLoading] = useState(true)
   const categoryData = useSelector(state => state.category_list)
+
   const dispatch = useDispatch()
 
   let history  = useHistory()
@@ -70,26 +73,33 @@ const Categories = () => {
   useEffect(() => {
     console.log("Render customers ")
     if(categoryData.data.length === 0) {
-      console.log("call list category")
       const getListCategory = async () => {
         try {
           const params = {limit:10}
           let res = await categoryApi.getListCategory(params)
           if (res.status === 200) {
             dispatch(setNewListCategory(res.data))
-            console.log(res.data)
+            setLoading(false)
+          } else {
+            alert("Errors")
           }
         } catch (error) {
           console.log(error)
         }
       }
       getListCategory()
+    } else {
+      setLoading(false)
     }
     document.title = "Categories"
     return () => {
       console.log("Un mount categories component")
     }
   }, [])
+
+  if(loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="page-center">

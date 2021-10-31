@@ -1,6 +1,5 @@
-import React, { useEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { NavLink, Switch, Route, useRouteMatch, useHistory } from "react-router-dom";
-
 import { useSelector, useDispatch } from "react-redux";
 
 import TableExtra from "../../components/table/TableExtra";
@@ -12,7 +11,9 @@ import productApi from "../../utils/api/productApi";
 import {setNewListProduct, selectProducts } from '../../redux/features/product_list'
 import SelectImageItem from "../../components/form/selectimage/selectImageItem/SelectImageItem";
 import { priceNumber } from "../../utils/priceNumber";
-import { productAddPage, productUpdatePage, } from "../../utils/urls";
+import { productAddPage, productUpdatePage, } from "../../utils/urls"
+import LoadingPage from "../../components/loadingPage/LoadingPage";
+
 const productTableHead = [
   "id",
   "name",
@@ -56,6 +57,7 @@ const Products = () => {
   const { path, url } = useRouteMatch()
   const productData = useSelector(state => state.product_list)
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
   let history  = useHistory()
   
@@ -71,7 +73,7 @@ const Products = () => {
   useEffect(() => {
     console.log("render Product list")
     document.title = "Products"
-    if(1) {
+    if(productData.data.length === 0) {
       console.log("call list product")
       const getListProduct = async () => {
         try {
@@ -79,19 +81,28 @@ const Products = () => {
           let res = await productApi.getListProduct({})
           if (res.status === 200) {
             dispatch(setNewListProduct(res.data))
-            console.log(res.data)
+            setLoading(false)
+          } else {
+            alert("Errors")
           }
         } catch (error) {
           console.log(error)
         }
       }
       getListProduct()
+    } else {
+      setLoading(false)
     }
 
     return () => {
       console.log("Un mount categories component")
     }
   }, [])
+
+  console.log('render product page ')
+  if(loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="page-center">
@@ -123,7 +134,7 @@ const Products = () => {
           </div>
         </Route>
         
-        <Route path={productAddPage} exact component={AddProduct} />
+        <Route path={productAddPage()} exact component={AddProduct} />
         <Route path={`${path}/:slug`} component={UpdateProduct}/>
       </Switch>
     </div>

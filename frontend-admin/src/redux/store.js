@@ -10,6 +10,10 @@ import order_list from './features/order_list'
 import order_crud from './features/order_crud'
 import coupon_list from './features/coupon_list'
 import coupon_crud from './features/coupon_crud'
+import payment_method_list from './features/payment_method_list'
+import payment_method_crud from './features/payment_method_crud'
+import shipping_method_list from './features/shipping_method_list'
+import shipping_method_crud from './features/shipping_method_crud'
 
 export const store = configureStore({
   reducer: {
@@ -23,6 +27,11 @@ export const store = configureStore({
     order_list,
     order_crud,
     coupon_list,
-    coupon_crud:coupon_crud,
-  },
+    coupon_crud,
+    payment_method_list,
+    payment_method_crud,
+    shipping_method_list,
+    shipping_method_crud
+
+  }
 })

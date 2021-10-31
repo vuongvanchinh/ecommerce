@@ -12,6 +12,7 @@
     --logo-height: 150px;
     --sidebar-item-padding: 0 20px;
     z-index: 2;
+    overflow-y: auto;
 }
 
 .sidebar__logo {

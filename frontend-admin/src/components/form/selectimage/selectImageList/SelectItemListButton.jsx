@@ -4,19 +4,26 @@ import { uuid } from '../../../../utils/uuid';
 
 const SelectItemListButton = (props) => {
     let {label, id, onChange, name} = props;
+
     const handleChange = (e) => {
         let files = e.target.files;
+        let results = []
         for (let i = 0; i < files.length; i++) {
             let file = files[i];
             if (file.type.startsWith('image')) {
                 let reader = new FileReader();
                 reader.readAsDataURL(file);
                 reader.onloadend = (event) => {
-                    onChange({name: name, value: [reader.result]})
+                    //onChange({name: name, value: [reader.result]})
+                    results.push(reader.result)
+                    if (i === files.length - 1) {
+                        onChange({name: name, value: results})
+                    }
                 }
                 // onChange({name: name, value: url})
             } else alert("Use only image format!");
         }
+        
         
     }
 

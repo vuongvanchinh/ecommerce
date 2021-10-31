@@ -1,8 +1,6 @@
-import React, { useEffect} from "react"
+import React, { useEffect, useState} from "react"
 import { NavLink, Switch, Route, useRouteMatch, useHistory } from "react-router-dom"
-
 import { useSelector, useDispatch } from "react-redux"
-
 import TableExtra from "../../components/table/TableExtra"
 import Button from "../../components/button/Button"
 // import Checkbox from "../../components/form/checkbox/Checkbox"
@@ -14,6 +12,7 @@ import { setNewListCoupon, selectCoupons } from "../../redux/features/coupon_lis
 import { priceNumber } from "../../utils/priceNumber"
 import Badge from "../../components/badge/Badge"
 import { couponAddPage, couponUpdatePage } from "../../utils/urls"
+import LoadingPage from "../../components/loadingPage/LoadingPage"
 const percentage = 'percentage deduction'
 const direct = 'direct deduction'
 const freeship = 'freeship'
@@ -63,6 +62,7 @@ const Coupons = () => {
   const { path } = useRouteMatch()
   const couponData = useSelector(state => state.coupon_list)
   const dispatch = useDispatch()
+  const [loading, setLoading] = useState(true)
 
   let history  = useHistory()
   
@@ -78,7 +78,7 @@ const Coupons = () => {
   useEffect(() => {
     console.log("render Coupon list")
     document.title = "Coupons"
-    if(1) {
+    if(couponData.data.length === 0) {
       console.log("call list coupon")
       const getListCoupon = async () => {
         try {
@@ -86,19 +86,27 @@ const Coupons = () => {
           let res = await couponApi.getListCoupon({})
           if (res.status === 200) {
             dispatch(setNewListCoupon(res.data))
-            console.log(res.data)
+            setLoading(false)
+          } else {
+            alert("Sever errors")
           }
         } catch (error) {
           console.log(error)
         }
       }
       getListCoupon()
+    } else {
+      setLoading(false)
     }
 
     return () => {
       console.log("Un mount categories component")
     }
   }, [])
+
+  if(loading) {
+    return <LoadingPage />
+  }
 
   return (
     <div className="page-center">

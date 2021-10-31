@@ -41,7 +41,7 @@ const renderNotificationItem = (item, index, onClick) => (
 const TopNav = () => {
 
   // console.log(user_menu)
-  const user_current = JSON.parse(localStorage.getItem('user_current'))
+  const user_current = JSON.parse(localStorage.getItem('user_logedin'))
   return <div className="topnav">
     {/* <div className="topnav__search">
       <input type="text" placeholder="Search here..."/>

@@ -4,6 +4,7 @@ export const dashboardPage = () => {
     return base
 }
 
+
 // category
 export const categoryListPage = () => {
     return `${base}/categories`
@@ -62,6 +63,30 @@ export const orderAddPage = () => {
 
 export const orderUpdatePage = (id) => {
     return `${base}/orders/${id}`
+}
+
+export const paymentMethodListPage = () => {
+    return `${base}/payment-method`
+}
+
+export const paymentMethodAddPage = () => {
+    return `${base}/payment-method/add`
+}
+
+export const paymentMethodUpdatePage = (id) => {
+    return `${base}/payment-method/${id}`
+}
+
+export const shippingMethodListPage = () => {
+    return `${base}/shipping-method`
+}
+
+export const shippingMethodAddPage = () => {
+    return `${base}/shipping-method/add`
+}
+
+export const shippingMethodUpdatePage = (id) => {
+    return `${base}/shipping-method/${id}`
 }
 
 

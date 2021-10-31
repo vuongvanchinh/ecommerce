@@ -7,7 +7,7 @@ import {appendListCoupon, updateCoupon} from '../../redux/features/coupon_list'
 
 import couponApi from '../../utils/api/couponApi';
 import { couponListPage } from '../../utils/urls';
-import Loader from '../../components/loader/Loader';
+import LoadingPage from '../../components/loadingPage/LoadingPage';
 
 const validate = (data) => {
     let res = {}
@@ -40,6 +40,7 @@ const UpdateCoupon = () => {
     const history = useHistory()
     const coupon_crud = useSelector(state => state.coupon_crud)
     const coupons = useSelector(state => state.coupon_list.data)
+    const [loading, setLoading] = useState(true)
     const dispatch = useDispatch()
     const {id} = useParams();
     const handleChange = (dt) => {
@@ -98,6 +99,7 @@ const UpdateCoupon = () => {
         document.title = "Update Coupon"
         if (index !== -1) {
             dispatch(onSetNewCoupon(coupons[index]))
+            setLoading(false)
         } else {
             history.push(couponListPage())
         }
@@ -107,11 +109,8 @@ const UpdateCoupon = () => {
         }
     }, [])
 
-    if (!coupon_crud.id) {
-        return <div className='flex-center' style={{ minHeight: '70vh'}}>
-                <Loader variant='medium'/>
-        </div>
-
+    if (loading) {
+        return <LoadingPage />
     }
 
     return (
@@ -131,5 +130,4 @@ const UpdateCoupon = () => {
         </div>
     )
 }
-
 export default UpdateCoupon
