@@ -1,13 +1,16 @@
 #Ecommerce
 # Tổng quan
+
 - Trang web bán hàng 
 - Các tính năng
   - Login json web token
-  - Sign in
   - Product variant linh hoạt.
   - Discount
   - Checkout 
   -  ...
+- Công nghệ sử dụng
+  - backend: python django/django rest framework
+  - frontend: reactjs/nextjs
 # Yêu cầu 
   * Docker
   * npm/yarn
