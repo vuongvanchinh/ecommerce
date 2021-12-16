@@ -90,7 +90,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': 'db',
+        # 'HOST': 'db',
         'PORT': 5432,
     }
 }
@@ -185,8 +185,8 @@ SESSION_COOKIE_AGE = 604800 # a week
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = '587'
-EMAIL_HOST_USER = 'cdev.channel@gmail.com'
-EMAIL_HOST_PASSWORD = 'chinhvuong#@$$'#os.environ.get('EMAIL_PASSWORD')
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''#os.environ.get('EMAIL_PASSWORD')
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
