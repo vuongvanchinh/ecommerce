@@ -26,3 +26,5 @@ khởi chạy
 ```
 docker-compose up
 ```
+##Demo 
+![Hình ảnh](https://github.com/vuongvanchinh/ecommerce/blob/main/image.jpg?raw=true)
